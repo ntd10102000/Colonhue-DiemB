@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align:center">Trang đăng nhập</h1>
+            <form action="/signup_dk" method="post">
+                tên đăng nhập:
+                <input class="form-control" type="text" name="user_name" placeholder="nhập vào tên đăng nhập"> mật khẩu:
+                <input class="form-control" type="password" name="pass_word" placeholder="nhập vào mật khẩu"> r-mật khẩu:
+                <input class="form-control" type="password" name="rpass_word" placeholder="nhập vào mật khẩu"> email:
+                <input class="form-control" type="email" name="email" placeholder="nhập vào mật khẩu"> sdt:
+                <input class="form-control" type="text" name="sdt" placeholder="nhập vào mật khẩu">
+                <br/>
+                <input class="btn btn-primary" type="submit" name="signup" value="đăng kí">
+                <a href="/login" class="btn btn-primary">Đăng nhập</a>
+                <p>{{ err }}</p>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
