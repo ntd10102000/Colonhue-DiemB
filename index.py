@@ -68,28 +68,48 @@ def signup_dk():
             err = 'Tài khoản đã tồn tại'
     return render_template("signup.html", err = err)
 
-# @app.route("/")
-# def index():
-#     ma_sv = request.args.get("ma_sv", type = int)
-#     sql = "select * from sinhvien order by ma_sv ASC"
-#     cursor.execute(sql)
-#     record = cursor.fetchall()
-#     return render_template("home.html", dssv = record, ma_sv = ma_sv)
+@app.route("/product")
+def product():
+    if "username" in session:
+        id_sach = request.args.get("id_sach", type = int)
+        sql = "select * from db_sach order by id_sach ASC"
+        cursor.execute(sql)
+        record = cursor.fetchall()
+        return render_template("admin_product.html", ds=record, id_sach=id_sach)
+    else: 
+        return redirect("/login")
 
-# @app.route("/insert")
-# def insert():
-#     return render_template("insert.html")
+@app.route("/actor")
+def actor():
+    if "username" in session:
+        id_tacgia = request.args.get("id_tacgia", type = int)
+        sql = "select * from db_tacgia order by id_tacgia ASC"
+        cursor.execute(sql)
+        record = cursor.fetchall()
+        return render_template("admin_actor.html", ds=record, id_tacgia=id_tacgia)
+    else: 
+        return redirect("/login")
 
-# @app.route("/inserted", methods=["POST"])
-# def inserted():
-#     ten_sv = request.form.get("ten_sv")
-#     email = request.form.get("email")
-#     dia_chi = request.form.get("dia_chi")
 
-#     sql = f"insert into sinhvien(ten_sv, email, dia_chi) values(N'{ten_sv}', N'{email}', N'{dia_chi}')"
-#     cursor.execute(sql)
-#     connection.commit()
-#     return redirect("/")
+@app.route("/insert_actor")
+def insert():
+    return render_template("insert_actor.html")
+
+@app.route("/inserted_actor", methods=["POST"])
+def inserted():
+    ten_tacgia = request.form.get("ten_tacgia")
+    moTa = request.form.get("moTa")
+
+    for uploaded_file in request.files.getlist("avt_tacgia"):
+        if uploaded_file.filename != "":
+            avt = uploaded_file.filename
+            print(uploaded_file.filename)
+            uploaded_file.save(os.path.join("public/imgs", uploaded_file.filename))
+
+    sql = f"insert into db_tacgia(ten_tacgia, moTa, avt_tacgia) values(N'{ten_tacgia}', N'{moTa}', '../public/imgs{avt}')"
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/insert_actor")
 
 # @app.route("/delete")
 # def delete():

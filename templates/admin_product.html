@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Index</title>
+</head>
+
+<body>
+    <a href="/insert" class="btn btn-success">Thêm sinh viên</a>
+    <table class="table">
+        <tr>
+            <th>Mã sinh viên</th>
+            <th>Họ tên sinh viên</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Hành động</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Hành động</th>
+            <th>Hành động</th>
+        </tr>
+        {% for i in ds %}
+        <tr>
+            {% if i[0] == id_sach %}
+            <form action="/updated?ma_sv={{i[0]}}" method="POST">
+                <td>{{i[0]}}</td>
+                <td><input type="text" value="{{i[1]}}" name="id_sach"></td>
+                <td><input type="text" value="{{i[2]}}" name="ten_sach"></td>
+                <td><input type="text" value="{{i[3]}}" name="id_tacgia"></td>
+                <td><input type="text" value="{{i[4]}}" name="gia_sach"></td>
+                <td><input type="text" value="{{i[5]}}" name="soluong"></td>
+                <td><input type="text" value="{{i[6]}}" name="soSao"></td>
+                <td><input type="text" value="{{i[7]}}" name="mota"></td>
+                <td><input type="text" value="{{i[8]}}" name="trangThai"></td>
+                <td><input type="text" value="{{i[9]}}" name="id_dm"></td>
+                <td>
+                    <a href="/" class="btn btn-danger">Hủy</a>
+                    <input type="submit" class="btn btn-primary" value="Cập nhật">
+                </td>
+            </form>
+            {% else %} {% for x in i %}
+            <td>{{x}}</td>
+            {% endfor %}
+            <td>
+                <a href="/delete?id_sach={{i[0]}}" class="btn btn-danger">Xóa</a>
+                <a href="?id_sach={{i[0]}}" class="btn btn-primary">Sửa</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
