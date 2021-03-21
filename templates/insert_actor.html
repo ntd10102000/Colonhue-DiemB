@@ -11,11 +11,11 @@
 
 <body>
     <h1>THÊM MỚI TÁC GIẢ</h1>
-    <form action="/inserted_actor" method="POST">
-        Nhập vào thông tin tác giả:
-        <input class="form-control" type="text" name="ten_tacgia"> Nhập vào tên tác giả:
-        <input class="form-control" type="text" name="moTa"> Nhập vào mô tả:
-        <input class="form-control" type="file" name="avt_tacgia" multiple> Thêm ảnh tác giả:
+    <form action="/inserted_actor" method="POST" enctype="multipart/form-data">
+        Nhập vào tên tác giả:
+        <input class="form-control" type="text" name="ten_tacgia"> Nhập vào Mô tả:
+        <input class="form-control" type="text" name="moTa"> Thêm ảnh tác giả:
+        <input class="form-control" type="file" name="avt_tacgia" multiple> Thêm mới tác giả:
         <input class="btn btn-primary" type="submit" name="insert" value="Thêm mới tác giả">
         <a href="/" class="btn btn-danger">Hủy</a>
     </form>
