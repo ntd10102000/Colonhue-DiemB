@@ -96,17 +96,17 @@ def insert():
     return render_template("insert_actor.html")
 
 @app.route("/inserted_actor", methods=["POST"])
-def inserted():
-    ten_tacgia = request.form.get("ten_tacgia")
-    moTa = request.form.get("moTa")
-
+def inserted_actor():
+    avt = ""
     for uploaded_file in request.files.getlist("avt_tacgia"):
         if uploaded_file.filename != "":
             avt = uploaded_file.filename
             print(uploaded_file.filename)
             uploaded_file.save(os.path.join("public/imgs", uploaded_file.filename))
 
-    sql = f"insert into db_tacgia(ten_tacgia, moTa, avt_tacgia) values(N'{ten_tacgia}', N'{moTa}', '../public/imgs{avt}')"
+    ten_tacgia = request.form.get("ten_tacgia")
+    gioi_thieu = request.form.get("gioithieu")    
+    sql = f"insert into db_tacgia(ten_tacgia, avt_tacgia, gioi_thieu) values(N'{ten_tacgia}', N'{gioi_thieu}', '../public/imgs/{avt}')"
     cursor.execute(sql)
     connection.commit()
     return redirect("/insert_actor")
