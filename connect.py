@@ -5,7 +5,7 @@ connection = psycopg2.connect(
     password="Hau23022000",
     host="127.0.0.1",
     port="5432",
-    database="webgisB"
+    database="webgis"
 )
 
 cursor = connection.cursor()

@@ -111,27 +111,27 @@ def inserted_actor():
     connection.commit()
     return redirect("/insert_actor")
 
-# @app.route("/delete")
-# def delete():
-#     ma_sv = request.args.get("ma_sv", type = int)
-#     sql = f"delete from sinhvien where ma_sv = {ma_sv}" 
-#     cursor.execute(sql)
-#     connection.commit()
-#     return redirect("/")
+@app.route("/delete")
+def delete():
+    id_tacgia = request.args.get("id_tacgia", type = int)
+    sql = f"delete from db_tacgia where id_tacgia = {id_tacgia}" 
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/actor")
 
-# @app.route("/updated", methods=["POST"])
-# def updated():
-#     ma_sv = request.args.get("ma_sv", type = int)
-#     ten_sv = request.form.get("ten_sv")
-#     email = request.form.get("email")
-#     dia_chi = request.form.get("dia_chi")
+@app.route("/updated", methods=["POST"])
+def updated():
+    id_tacgia = request.args.get("id_tacgia", type = int)
+    ten_tacgia = request.form.get("ten_tacgia")
+    gioithieu = request.form.get("gioithieu")
+    avt_tacgia = request.form.get("avt_tacgia")
 
-#     print(ten_sv)
+    print(ten_tacgia)
 
-#     sql = f"update sinhvien set ten_sv = N'{ten_sv}', email = N'{email}', dia_chi = N'{dia_chi}' where ma_sv = {ma_sv}"
-#     cursor.execute(sql)
-#     connection.commit()
-#     return redirect("/")
+    sql = f"update db_tacgia set ten_tacgia = N'{ten_tacgia}', gioi_thieu = N'{gioithieu}', avt_tacgia = N'{avt_tacgia}' where id_tacgia = {id_tacgia}"
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/actor")
 
 # @app.route("/file")
 # def uploadFile():
