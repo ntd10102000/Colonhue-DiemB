@@ -79,23 +79,23 @@ def product():
     else: 
         return redirect("/login")
 
-@app.route("/actor")
-def actor():
+@app.route("/author")
+def author():
     if "username" in session:
         id_tacgia = request.args.get("id_tacgia", type = int)
         sql = "select * from db_tacgia order by id_tacgia ASC"
         cursor.execute(sql)
         record = cursor.fetchall()
-        return render_template("admin_actor.html", ds=record, id_tacgia=id_tacgia)
+        return render_template("admin_author.html", ds=record, id_tacgia=id_tacgia)
     else: 
         return redirect("/login")
 
 
-@app.route("/insert_actor")
+@app.route("/insert_author")
 def insert():
-    return render_template("insert_actor.html")
+    return render_template("insert_author.html")
 
-@app.route("/inserted_actor", methods=["POST"])
+@app.route("/inserted_author", methods=["POST"])
 def inserted_actor():
     avt = ""
     for uploaded_file in request.files.getlist("avt_tacgia"):
@@ -106,10 +106,10 @@ def inserted_actor():
 
     ten_tacgia = request.form.get("ten_tacgia")
     gioi_thieu = request.form.get("gioithieu")    
-    sql = f"insert into db_tacgia(ten_tacgia, avt_tacgia, gioi_thieu) values(N'{ten_tacgia}', N'{gioi_thieu}', '../public/imgs/{avt}')"
+    sql = f"insert into db_tacgia(ten_tacgia, avt_tacgia, gioi_thieu) values(N'{ten_tacgia}', '../public/imgs/{avt}', N'{gioi_thieu}')"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/insert_actor")
+    return redirect("/insert_author")
 
 @app.route("/delete")
 def delete():
@@ -117,7 +117,7 @@ def delete():
     sql = f"delete from db_tacgia where id_tacgia = {id_tacgia}" 
     cursor.execute(sql)
     connection.commit()
-    return redirect("/actor")
+    return redirect("/author")
 
 @app.route("/updated", methods=["POST"])
 def updated():
@@ -131,7 +131,7 @@ def updated():
     sql = f"update db_tacgia set ten_tacgia = N'{ten_tacgia}', gioi_thieu = N'{gioithieu}', avt_tacgia = N'{avt_tacgia}' where id_tacgia = {id_tacgia}"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/actor")
+    return redirect("/author")
 
 # @app.route("/file")
 # def uploadFile():
