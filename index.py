@@ -102,7 +102,7 @@ def inserted_actor():
         if uploaded_file.filename != "":
             avt = uploaded_file.filename
             print(uploaded_file.filename)
-            uploaded_file.save(os.path.join("public/imgs", uploaded_file.filename))
+            uploaded_file.save(os.path.join("static/imgs", uploaded_file.filename))
 
     ten_tacgia = request.form.get("ten_tacgia")
     gioi_thieu = request.form.get("gioithieu")    
