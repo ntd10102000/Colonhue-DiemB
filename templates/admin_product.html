@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <a href="/insert" class="btn btn-success">Thêm sách</a>
+    <a href="/insert_product" class="btn btn-success">Thêm sách</a>
     <table class="table">
         <tr>
             <th>Mã sách</th>
@@ -23,19 +23,27 @@
         {% for i in ds %}
         <tr>
             {% if i[0] == id_sach %}
-            <form action="/updated?ma_sv={{i[0]}}" method="POST">
+            <form action="/updated_product?id_sach={{i[0]}}" method="POST">
                 <td>{{i[0]}}</td>
-                <td><input type="text" value="{{i[1]}}" name="id_sach"></td>
-                <td><input type="text" value="{{i[2]}}" name="ten_sach"></td>
-                <td><input type="text" value="{{i[3]}}" name="id_tacgia"></td>
-                <td><input type="text" value="{{i[4]}}" name="gia_sach"></td>
-                <td><input type="text" value="{{i[5]}}" name="soluong"></td>
-                <td><input type="text" value="{{i[6]}}" name="soSao"></td>
-                <td><input type="text" value="{{i[7]}}" name="mota"></td>
-                <td><input type="text" value="{{i[8]}}" name="trangThai"></td>
-                <td><input type="text" value="{{i[9]}}" name="id_dm"></td>
+                
+                <td><input type="text" value="{{i[1]}}" name="ten_sach"></td>
+                <td><select name='id_tacgia'>
+                    {% for i in ds1 %}
+                    <option value="{{i[0]}}">{{i[1]}}</option>
+                    {% endfor %}
+                </select></td>
+                <td><input type="text" value="{{i[3]}}" name="gia_sach"></td>
+                <td><input type="text" value="{{i[4]}}" name="soluong"></td>
+                <td><input type="text" value="{{i[5]}}" name="so_sao"></td>
+                <td><input type="text" value="{{i[6]}}" name="mota"></td>
+                <td><input type="text" value="{{i[7]}}" name="trang_thai"></td>
+                <td><select name='id_dm'>
+                    {% for i in ds2 %}
+                    <option value="{{i[0]}}">{{i[1]}}</option>
+                    {% endfor %}
+                </select></td>
                 <td>
-                    <a href="/" class="btn btn-danger">Hủy</a>
+                    <a href="/product" class="btn btn-danger">Hủy</a>
                     <input type="submit" class="btn btn-primary" value="Cập nhật">
                 </td>
             </form>
@@ -43,7 +51,7 @@
             <td>{{x}}</td>
             {% endfor %}
             <td>
-                <a href="/delete?id_sach={{i[0]}}" class="btn btn-danger">Xóa</a>
+                <a href="/delete_product?id_sach={{i[0]}}" class="btn btn-danger">Xóa</a>
                 <a href="?id_sach={{i[0]}}" class="btn btn-primary">Sửa</a>
             </td>
             {% endif %}

@@ -75,9 +75,69 @@ def product():
         sql = "select * from db_sach order by id_sach ASC"
         cursor.execute(sql)
         record = cursor.fetchall()
-        return render_template("admin_product.html", ds=record, id_sach=id_sach)
+        sql1 = "select id_tacgia, ten_tacgia from db_tacgia"
+        cursor.execute(sql1)
+        record1 = cursor.fetchall()
+        sql2 = "select id_dm, ten_dm from db_danhmuc"
+        cursor.execute(sql2)
+        record2 = cursor.fetchall()
+        return render_template("admin_product.html", ds=record, id_sach=id_sach,ds1=record1,ds2=record2)
     else: 
         return redirect("/login")
+@app.route("/insert_product")
+def insert_product():
+    sql = "select id_tacgia, ten_tacgia from db_tacgia"
+    cursor.execute(sql)
+    record = cursor.fetchall()
+    print(record)
+    sql1 = "select id_dm, ten_dm from db_danhmuc"
+    cursor.execute(sql1)
+    record1 = cursor.fetchall()
+    print(record1)
+    return render_template("insert_product.html", ds=record,ds1=record1)
+
+@app.route("/inserted_product", methods=["POST"])
+def inserted_product():
+    
+    ten_sach = request.form.get("ten_sach")
+    id_tacgia = request.form.get("id_tacgia")
+    gia_sach = request.form.get("gia_sach")
+    soluong = request.form.get("soluong")
+    so_sao = request.form.get("so_sao")
+    mota = request.form.get("mota")
+    trang_thai = request.form.get("trang_thai")
+    id_dm = request.form.get("id_dm")  
+    sql = f"insert into db_sach(ten_sach,id_tacgia,gia_sach,soluong,so_sao,mota,trang_thai,id_dm) values(N'{ten_sach}', {id_tacgia}, {gia_sach},{soluong},{so_sao},'{mota}',{trang_thai},{id_dm})"
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/insert_product")
+
+@app.route("/delete_product")
+def delete_product():
+    id_sach = request.args.get("id_sach", type = int)
+    sql = f"delete from db_sach where id_sach = {id_sach}" 
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/product")
+
+@app.route("/updated_product", methods=["POST"])
+def updated_product():
+    id_sach = request.args.get("id_sach", type = int)
+    ten_sach = request.form.get("ten_sach")
+    id_tacgia = request.form.get("id_tacgia")
+    gia_sach = request.form.get("gia_sach")
+    soluong = request.form.get("soluong")
+    so_sao = request.form.get("so_sao")
+    mota = request.form.get("mota")
+    trang_thai = request.form.get("trang_thai")
+    id_dm = request.form.get("id_dm")  
+
+    print(ten_sach)
+
+    sql = f"update db_sach set ten_sach = N'{ten_sach}',id_tacgia={id_tacgia}, gia_sach={gia_sach}, soluong={soluong}, so_sao={so_sao}, mota=N'{mota}', trang_thai={trang_thai},id_dm={id_dm} where id_sach = {id_sach}"
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/product")
 
 @app.route("/author")
 def author():

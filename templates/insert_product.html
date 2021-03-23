@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>THÊM MỚI SÁCH</h1>
+    <form action="/inserted_product" enctype="multipart/form-data" method="POST">
+        Nhập vào tên sách:
+        <input class="form-control" type="text" name="ten_sach">
+        Nhập vào tacgia:
+        <select name='id_tacgia'>
+            {% for i in ds %}
+            <option value="{{i[0]}}">{{i[1]}}</option>
+            {% endfor %}
+        </select>
+        Nhập giá sách:
+        <input class="form-control" type="text" name="gia_sach" multiple="">
+        Nhập số lượng:
+        <input class="form-control" type="text" name="soluong" multiple="">
+        Nhập số sao:
+        <input class="form-control" type="text" name="so_sao" multiple="">
+        Nhập Mô tả:
+        <input class="form-control" type="text" name="mota" multiple="">
+        Nhập TRạng thái:
+        <input class="form-control" type="text" name="trang_thai" multiple="">
+        Nhập vào id danh muc:
+        <select name='id_dm'>
+            {% for i in ds1 %}
+            <option value="{{i[0]}}">{{i[1]}}</option>
+            {% endfor %}
+        </select>
+        <input class="btn btn-primary" type="submit" name="insert" value="Thêm mới tác giả">
+        <a href="/product" class="btn btn-danger">Hủy</a>
+    </form>
+</body>
+
+</html>
