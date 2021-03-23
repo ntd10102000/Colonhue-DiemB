@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>THÊM MỚI Ảnh của sách</h1>
+    <form action="/inserted_img" enctype="multipart/form-data" method="POST">
+        Chọn tác giả:
+        <select name='id_sach'>
+            <option>Chọn sách ....</option>
+            {% for i in ds %}
+            <option value="{{i[0]}}">{{i[1]}}</option>
+            {% endfor %}
+        </select>
+        <br/> Chọn ảnh:
+        <input class="form-control" type="file" name="link_img" multiple="">
+        <input class="btn btn-primary" type="submit" name="insert" value="Thêm mới sách">
+        <a href="/img_sach" class="btn btn-danger">Hủy</a>
+    </form>
+</body>
+
+</html>

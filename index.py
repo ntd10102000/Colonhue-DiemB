@@ -166,7 +166,7 @@ def inserted_actor():
 
     ten_tacgia = request.form.get("ten_tacgia")
     gioi_thieu = request.form.get("gioithieu")    
-    sql = f"insert into db_tacgia(ten_tacgia, avt_tacgia, gioi_thieu) values(N'{ten_tacgia}', '../public/imgs/{avt}', N'{gioi_thieu}')"
+    sql = f"insert into db_tacgia(ten_tacgia, avt_tacgia, gioi_thieu) values(N'{ten_tacgia}', '../static/imgs/{avt}', N'{gioi_thieu}')"
     cursor.execute(sql)
     connection.commit()
     return redirect("/insert_author")
@@ -192,6 +192,68 @@ def updated():
     cursor.execute(sql)
     connection.commit()
     return redirect("/author")
+
+@app.route("/img_sach")
+def img_sach():
+    if "username" in session:
+        id_img = request.args.get("id_img", type = int)
+        sql = "select img_sach.id_img, img_sach.link_img, db_sach.ten_sach, img_sach.id_sach from img_sach inner join db_sach on img_sach.id_sach = db_sach.id_sach order by id_img ASC"
+        cursor.execute(sql)
+        record = cursor.fetchall()
+        sql1 = "select * from db_sach order by id_sach ASC"
+        cursor.execute(sql1)
+        record1 = cursor.fetchall()
+        return render_template("admin_img.html", ds=record, id_img=id_img, ds1=record1)
+    else: 
+        return redirect("/login")
+
+@app.route("/insert_img")
+def insert_img():
+    sql1 = "select id_sach, ten_sach from db_sach order by id_sach ASC"
+    cursor.execute(sql1)
+    record1 = cursor.fetchall()
+    return render_template("insert_img.html", ds=record1)
+
+@app.route("/inserted_img", methods=["POST"])
+def inserted_img():
+    img = ""
+    id_sach = request.form.get("id_sach")
+    for uploaded_file in request.files.getlist("link_img"):
+        if uploaded_file.filename != "":
+            img = uploaded_file.filename
+            print(uploaded_file.filename)
+            uploaded_file.save(os.path.join("static/imgs", uploaded_file.filename))
+            sql = f"insert into img_sach(link_img, id_sach) values('../static/imgs/{img}', '{id_sach}')"
+            cursor.execute(sql)
+            connection.commit()
+
+    return redirect("/insert_img")
+
+@app.route("/delete_img")
+def delete_img():
+    id_img = request.args.get("id_img", type = int)
+    sql = f"delete from img_sach where id_img = {id_img}" 
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/img_sach")
+
+@app.route("/updated_img", methods=["POST"])
+def updated_img():
+    id_img = request.args.get("id_img", type = int)
+    id_sach = request.form.get("id_sach")
+    img = ""
+    for uploaded_file in request.files.getlist("link_img"):
+        if uploaded_file.filename != "":
+            img = uploaded_file.filename
+            print(uploaded_file.filename)
+            uploaded_file.save(os.path.join("static/imgs", uploaded_file.filename))
+
+    sql = f"update img_sach set link_img = '../static/imgs/{img}', id_sach = '{id_sach}' where id_img = {id_img}"
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/img_sach")
+
+
 
 # @app.route("/file")
 # def uploadFile():
