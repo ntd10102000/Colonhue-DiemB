@@ -274,7 +274,7 @@ def inserted_category():
     
     ten_dm = request.form.get("ten_dm")
     trang_thai_dm = request.form.get("trang_thai_dm")    
-    sql = f"insert into db_danhmuc(ten_dm,trang_thai_dm) values(N'{ten_dm}', N'{trang_thai_dm}')"
+    sql = f"insert into db_danhmuc(ten_dm,trang_thai_dm) values(N'{ten_dm}', '{trang_thai_dm}')"
     cursor.execute(sql)
     connection.commit()
     return redirect("/insert_category")
@@ -295,7 +295,7 @@ def updated_category():
     
     print(ten_dm)
 
-    sql = f"update db_danhmuc set ten_dm = N'{ten_dm}', trang_thai_dm = N'{trang_thai_dm}' where id_dm = {id_dm}"
+    sql = f"update db_danhmuc set ten_dm = N'{ten_dm}', trang_thai_dm = '{trang_thai_dm}' where id_dm = {id_dm}"
     cursor.execute(sql)
     connection.commit()
     return redirect("/category")
