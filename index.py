@@ -253,6 +253,55 @@ def updated_img():
     connection.commit()
     return redirect("/img_sach")
 
+@app.route("/category")
+def category():
+    if "username" in session:
+        id_dm = request.args.get("id_dm", type = int)
+        sql = "select * from db_danhmuc order by id_dm ASC"
+        cursor.execute(sql)
+        record = cursor.fetchall()
+        return render_template("admin_category.html", ds=record, id_dm=id_dm)
+    else: 
+        return redirect("/login")
+
+
+@app.route("/insert_category")
+def insert_category():
+    return render_template("insert_category.html")
+
+@app.route("/inserted_category", methods=["POST"])
+def inserted_category():
+    
+    ten_dm = request.form.get("ten_dm")
+    trang_thai_dm = request.form.get("trang_thai_dm")    
+    sql = f"insert into db_danhmuc(ten_dm,trang_thai_dm) values(N'{ten_dm}', N'{trang_thai_dm}')"
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/insert_category")
+
+@app.route("/delete_category")
+def delete_category():
+    id_dm = request.args.get("id_dm", type = int)
+    sql = f"delete from db_danhmuc where id_dm = {id_dm}" 
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/category")
+
+@app.route("/updated_category", methods=["POST"])
+def updated_category():
+    id_dm = request.args.get("id_dm", type = int)
+    ten_dm = request.form.get("ten_dm")
+    trang_thai_dm = request.form.get("trang_thai_dm")
+    
+    print(ten_dm)
+
+    sql = f"update db_danhmuc set ten_dm = N'{ten_dm}', trang_thai_dm = N'{trang_thai_dm}' where id_dm = {id_dm}"
+    cursor.execute(sql)
+    connection.commit()
+    return redirect("/category")
+@app.route("/search")
+def search():
+    return render_template("shop.html")
 
 
 # @app.route("/file")
