@@ -299,9 +299,10 @@ def updated_category():
     cursor.execute(sql)
     connection.commit()
     return redirect("/category")
-@app.route("/search")
-def search():
-    return render_template("shop.html")
+
+@app.route("/admin")
+def admin():
+    return render_template("admin.html")
 
 
 # @app.route("/file")
