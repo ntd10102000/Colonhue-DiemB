@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    {% for i in rs %}
     <section class="sectional header">
         <div class="container-fluid">
             <div class="logo">
@@ -48,10 +49,10 @@
                     <img src="../static/imgs/Breadcumd.jpg" />
                     <div class="breadcrumb_content">
                         <h1>Product Details</h1>
-                        <a href="#">Home / </a>
-                        <a href="#"> Shop </a>
+                        <a href="/">Home / </a>
+                        <a href="/shop"> Shop </a>
                         <span class="delimiter">
-                            / Name product
+                            / {{i[1]}}
                         </span>
                     </div>
                 </div>
@@ -63,16 +64,16 @@
             <div class="row">
                 <div class="product-details">
                     <div class="product_left">
-                        <img src="../static/imgs/Image-14.jpg">
+                        <img src="{{i[10]}}" style="width: 200%;">
                     </div>
                     <div class="product_right">
                         <div class="name_product">
-                            <h2>Delicious Place</h2>
+                            <h2>{{i[1]}}</h2>
                             <div class="star">
                                 <i>x x x x x</i>
                                 <p>(2 customer reviews)</p>
                             </div>
-                            <div class="price">$35.00</div>
+                            <div class="price">${{i[3]}}</div>
                         </div>
                         <hr style="margin-top: 120px">
                         <div class="check">
@@ -82,7 +83,7 @@
                             <span>In Stock</span>
                         </div>
                         <div class="description">
-                            <p>Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida nec dui. Aenean aliquam varius ipsum, non ultricies tellus sodales eu. Donec dignissim viverra nunc, ut aliquet magna posuere eget.</p>
+                            <p>{{i[6]}}</p>
                         </div>
                         <div class="add-to-cart">
                             <a href="#">ADD TO CART</a>
@@ -90,9 +91,9 @@
                         </div>
                         <hr style="margin-top: 35px">
                         <div class="product-meta">
-                            <h4>Designer: <a href="#">Duong Ngt</a></h4>
+                            <h4>Author: <a href="/shop?tg={{i[2]}}">{{i[9]}}</a></h4>
                             <h4>Size: <a href="#">30x30x30x30</a></h4>
-                            <h4>Category: <a href="#">Calendar</a></h4>
+                            <h4>Category: <a href="/shop?dm={{i[8]}}">{{i[11]}}</a></h4>
                             <h4>Share:
                                 <a href="#"><i class="fab fa-twitter"></i></a>
                                 <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -103,73 +104,28 @@
                         </div>
                     </div>
                 </div>
+                {% endfor %}
                 <div class="related-products">
                     <h2>Related Products</h2>
                     <div style="margin-bottom: 20px" class="h2_gach"></div>
+                    {% for i in lq %}
                     <div class="col-xl-3 new_product">
                         <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
+                            <img src="{{i[10]}}" class="image_1" />
                             <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
+                                <img src="{{i[10]}}" class="image" />
                                 <div class="product_hover_a">
                                     <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
+                                    <a href="/product?id_sach={{i[0]}}"><i class="fas fa-search a"></i></a>
                                     <a href="#"><i class="far fa-heart a"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">Delicious Place</a>
-                        <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                        <p>$35.00</p>
+                        <a href="/product?id_sach={{i[0]}}">{{i[1]}}</a>
+                        <h3><i>by</i> <a href="/shop?tg={{i[2]}}"> {{i[9]}}</a></h3>
+                        <p>${{i[3]}}</p>
                     </div>
-                    <div class="col-xl-3 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">Delicious Place</a>
-                        <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                        <p>$35.00</p>
-                    </div>
-                    <div class="col-xl-3 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">Delicious Place</a>
-                        <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                        <p>$35.00</p>
-                    </div>
-                    <div class="col-xl-3 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">Delicious Place</a>
-                        <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                        <p>$35.00</p>
-                    </div>
+                    {% endfor %}
                 </div>
                 <div class="reviews">
                     <h2>Reviews</h2>

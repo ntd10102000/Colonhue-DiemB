@@ -68,8 +68,8 @@ def signup_dk():
             err = 'Tài khoản đã tồn tại'
     return render_template("signup.html", err = err)
 
-@app.route("/product")
-def product():
+@app.route("/products")
+def products():
     if "username" in session:
         id_sach = request.args.get("id_sach", type = int)
         sql = "select * from db_sach order by id_sach ASC"
@@ -306,39 +306,48 @@ def admin():
 
 @app.route("/shop", methods=["GET"])
 def shop():
-    if "username" in session:
-        keyword = request.args.get("search", type = str)
-        max_s = request.args.get("max", type = int)
-        min_s = request.args.get("min", type = int)
-        dm = request.args.get("dm", type = int)
-        tg = request.args.get("tg", type = int)
-        sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach;"
-        if keyword != None:
-            sql = f"SELECT a.*, c.ten_tacgia, img.link_img FROM db_sach AS a INNER JOIN db_danhmuc as b ON b.id_dm = a.id_dm INNER JOIN db_tacgia as c ON c.id_tacgia = a.id_tacgia INNER JOIN img_sach AS img ON a.id_sach = img.id_sach WHERE a.ten_sach LIKE N'%{keyword}%' OR b.ten_dm LIKE N'%{keyword}%' OR c.ten_tacgia LIKE N'%{keyword}%';"
-        elif max_s != None and min_s != None:
-            sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach WHERE a.gia_sach BETWEEN '{min_s}' AND '{max_s}';"
-        elif dm != None:
-            sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach INNER JOIN db_danhmuc as dm ON dm.id_dm = a.id_dm where dm.id_dm = {dm};"
-        elif tg != None:
-            sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach where db_tacgia.id_tacgia = {tg};"
-        cursor.execute(sql)
-        record = cursor.fetchall()
-        sql_tacgia = f"select * from db_tacgia;"
-        cursor.execute(sql_tacgia)
-        record_tacgia = cursor.fetchall()
-        sql_count_tacgia = f"SELECT db_sach.id_tacgia, COUNT(db_sach.id_tacgia) AS soluong_tg FROM db_sach group by db_sach.id_tacgia;"
-        cursor.execute(sql_count_tacgia)
-        record_count_tacgia = cursor.fetchall()
-        sql_danhmuc = f"select * from db_danhmuc;"
-        cursor.execute(sql_danhmuc)
-        record_danhmuc = cursor.fetchall()
-        sql_count_danhmuc = f"SELECT db_sach.id_dm, COUNT(db_sach.id_dm) AS soluong_dm FROM db_sach group by db_sach.id_dm;"
-        cursor.execute(sql_count_danhmuc)
-        record_count_danhmuc = cursor.fetchall()
-        connection.commit()
-        return render_template("shop.html", record_tacgia = record_tacgia, record_count_tacgia = record_count_tacgia, record_danhmuc = record_danhmuc, record_count_danhmuc = record_count_danhmuc, record = record)
-    else: 
-        return redirect("/login")
+    keyword = request.args.get("search", type = str)
+    max_s = request.args.get("max", type = int)
+    min_s = request.args.get("min", type = int)
+    dm = request.args.get("dm", type = int)
+    tg = request.args.get("tg", type = int)
+    sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach;"
+    if keyword != None:
+        sql = f"SELECT a.*, c.ten_tacgia, img.link_img FROM db_sach AS a INNER JOIN db_danhmuc as b ON b.id_dm = a.id_dm INNER JOIN db_tacgia as c ON c.id_tacgia = a.id_tacgia INNER JOIN img_sach AS img ON a.id_sach = img.id_sach WHERE a.ten_sach LIKE N'%{keyword}%' OR b.ten_dm LIKE N'%{keyword}%' OR c.ten_tacgia LIKE N'%{keyword}%';"
+    elif max_s != None and min_s != None:
+        sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach WHERE a.gia_sach BETWEEN '{min_s}' AND '{max_s}';"
+    elif dm != None:
+        sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach INNER JOIN db_danhmuc as dm ON dm.id_dm = a.id_dm where dm.id_dm = {dm};"
+    elif tg != None:
+        sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach where db_tacgia.id_tacgia = {tg};"
+    cursor.execute(sql)
+    record = cursor.fetchall()
+    sql_tacgia = f"select * from db_tacgia;"
+    cursor.execute(sql_tacgia)
+    record_tacgia = cursor.fetchall()
+    sql_count_tacgia = f"SELECT db_sach.id_tacgia, COUNT(db_sach.id_tacgia) AS soluong_tg FROM db_sach group by db_sach.id_tacgia;"
+    cursor.execute(sql_count_tacgia)
+    record_count_tacgia = cursor.fetchall()
+    sql_danhmuc = f"select * from db_danhmuc;"
+    cursor.execute(sql_danhmuc)
+    record_danhmuc = cursor.fetchall()
+    sql_count_danhmuc = f"SELECT db_sach.id_dm, COUNT(db_sach.id_dm) AS soluong_dm FROM db_sach group by db_sach.id_dm;"
+    cursor.execute(sql_count_danhmuc)
+    record_count_danhmuc = cursor.fetchall()
+    connection.commit()
+    return render_template("shop.html", record_tacgia = record_tacgia, record_count_tacgia = record_count_tacgia, record_danhmuc = record_danhmuc, record_count_danhmuc = record_count_danhmuc, record = record)
+    
+@app.route("/product", methods=["GET"])
+def product():
+    id_sach = request.args.get("id_sach", type = int)
+    sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img, dm.ten_dm FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach INNER JOIN db_danhmuc as dm ON dm.id_dm = a.id_dm where a.id_sach = {id_sach};"
+    cursor.execute(sql)
+    rs = cursor.fetchall()
+    sql_lq = f"SELECT db_sach.*, db_tacgia.ten_tacgia, img_sach.link_img FROM db_sach INNER JOIN db_tacgia ON db_sach.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach ON db_sach.id_sach = img_sach.id_sach WHERE id_dm IN (SELECT id_dm FROM db_sach WHERE id_sach = {id_sach}) or db_sach.id_tacgia IN (SELECT id_tacgia FROM db_sach WHERE id_sach = {id_sach}) limit 4;"
+    cursor.execute(sql_lq)
+    lq = cursor.fetchall()
+    connection.commit()
+    return render_template("product.html", rs = rs, lq = lq)       
 
 
 # @app.route("/file")
