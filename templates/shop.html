@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col-xl-3 slide2_left">
                     <div class="input-group mb-3">
-                        <form name="search" method="get" action="/search">
+                        <form action="/shop" method="GET" enctype="multipart/form-data">
                             <input type="text" class="form-control input_search" placeholder="Search..." aria-label="Recipient's username" aria-describedby="button-addon2" name="search">
                             <div class="input-group-append" style="width: 20%;">
                                 <button class="btn btn-outline-secondary button_search" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
@@ -73,32 +73,30 @@
                         <h2 style="font-size: 16px;border-bottom:1px solid rgba(248,109,114,.25);">Categories</h2>
                         <div style="margin-bottom: 30px" class="h2_gach"></div>
                         <ul>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
+                            {% for j in record_count_danhmuc %} {% for i in record_danhmuc %} {% if j[0] == i[0] %}
+                            <li><a href="/shop?dm={{i[0]}}"> {{i[1]}} </a> ({{j[1]}})</li>
+                            {% else: %}
+                            <li><a href="/shop?dm={{i[0]}}"> {{i[1]}} </a> (0)</li> {% endif %} {% endfor %} {% endfor %}
                         </ul>
                     </div>
                     <div class="price">
                         <h2 style="font-size: 16px;border-bottom:1px solid rgba(248,109,114,.25);">Price</h2>
                         <div style="margin-bottom: 30px" class="h2_gach"></div>
-                        <input type="number" name="years" placeholder="Min" />
-                        <span>-</span>
-                        <input type="number" name="years" placeholder="Max" />
-                        <button class="btn btn-outline-secondary button_search" type="button"><i class="fas fa-search"></i></button>
+                        <form name="mm" method="get" action="/shop">
+                            <input type="number" name="min" placeholder="Min" />
+                            <span>-</span>
+                            <input type="number" name="max" placeholder="Max" />
+                            <button class="btn btn-outline-secondary button_search" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
                     </div>
                     <div class="designer">
-                        <h2 style="font-size: 16px;border-bottom:1px solid rgba(248,109,114,.25);">Designer</h2>
+                        <h2 style="font-size: 16px;border-bottom:1px solid rgba(248,109,114,.25);">Author</h2>
                         <div style="margin-bottom: 30px" class="h2_gach"></div>
                         <ul>
-                            <li><a href="#">Anna Hillton </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
-                            <li><a href="#">Business </a>(3)</li>
+                            {% for j in record_count_tacgia %} {% for i in record_tacgia %} {% if j[0] == i[0] %}
+                            <li><a href="/shop?tg={{i[0]}}"> {{i[1]}} </a> ({{j[1]}})</li>
+                            {% else: %}
+                            <li><a href="/shop?tg={{i[0]}}"> {{i[1]}} </a> (0)</li> {% endif %} {% endfor %} {% endfor %}
                         </ul>
                     </div>
                     <div class="sale">
@@ -119,11 +117,12 @@
                     </div>
                 </div>
                 <div class="col-xl-9 slide2_right">
-                    <div class="col-xl-4 new_product">
+                    {% for i in record %}
+                    <div class="col-xl-4 new_product" style="float: left;height: 600px;">
                         <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
+                            <img src="{{i[10]}}" class="image_1" />
                             <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
+                                <img src="{{i[10]}}" class="image" />
                                 <div class="product_hover_a">
                                     <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
                                     <a href="#"><i class="fas fa-search a"></i></a>
@@ -132,155 +131,12 @@
                             </div>
                         </div>
                         <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
+                            <a href="#">{{i[1]}}</a>
+                            <h3><i>by</i> <a href="#"> {{i[9]}}</a></h3>
+                            <p>${{i[3]}}</p>
                         </div>
                     </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 new_product">
-                        <div class="img_product">
-                            <img src="../static/imgs/Image-27.jpg" class="image_1" />
-                            <div class="product_hover">
-                                <img src="../static/imgs/Image-14.jpg" class="image" />
-                                <div class="product_hover_a">
-                                    <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                    <a href="#"><i class="fas fa-search a"></i></a>
-                                    <a href="#"><i class="far fa-heart a"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact_product">
-                            <a href="#">Delicious Place</a>
-                            <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                            <p>$35.00</p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
