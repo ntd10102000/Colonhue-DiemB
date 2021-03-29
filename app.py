@@ -120,7 +120,7 @@ def delete_product():
     sql = f"delete from db_sach where id_sach = {id_sach}" 
     cursor.execute(sql)
     connection.commit()
-    return redirect("/product")
+    return redirect("/products")
 
 @app.route("/updated_product", methods=["POST"])
 def updated_product():
@@ -136,7 +136,7 @@ def updated_product():
     sql = f"update db_sach set ten_sach = N'{ten_sach}',id_tacgia={id_tacgia}, gia_sach={gia_sach}, soluong={soluong}, so_sao={so_sao}, mota=N'{mota}', trang_thai={trang_thai},id_dm={id_dm} where id_sach = {id_sach}"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/product")
+    return redirect("/products")
 
 @app.route("/author")
 def author():
@@ -274,8 +274,8 @@ def insert_category():
 def inserted_category():
     
     ten_dm = request.form.get("ten_dm")
-    trang_thai_dm = request.form.get("trang_thai_dm")    
-    sql = f"insert into db_danhmuc(ten_dm,trang_thai_dm) values(N'{ten_dm}', '{trang_thai_dm}')"
+      
+    sql = f"insert into db_danhmuc(ten_dm) values(N'{ten_dm}')"
     cursor.execute(sql)
     connection.commit()
     return redirect("/insert_category")
@@ -292,11 +292,11 @@ def delete_category():
 def updated_category():
     id_dm = request.args.get("id_dm", type = int)
     ten_dm = request.form.get("ten_dm")
-    trang_thai_dm = request.form.get("trang_thai_dm")
+    
     
     print(ten_dm)
 
-    sql = f"update db_danhmuc set ten_dm = N'{ten_dm}', trang_thai_dm = '{trang_thai_dm}' where id_dm = {id_dm}"
+    sql = f"update db_danhmuc set ten_dm = N'{ten_dm}'where id_dm = {id_dm}"
     cursor.execute(sql)
     connection.commit()
     return redirect("/category")
