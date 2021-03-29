@@ -25,7 +25,7 @@
             {% if i[0] == id_sach %}
             <form action="/updated_product?id_sach={{i[0]}}" method="POST">
                 <td>{{i[0]}}</td>
-                
+
                 <td><input type="text" value="{{i[1]}}" name="ten_sach"></td>
                 <td><select name='id_tacgia'>
                     {% for i in ds1 %}

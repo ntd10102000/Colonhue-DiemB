@@ -4,20 +4,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../static/js/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/d3fa3cecaa.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Admin</title>
+    <script src="https://kit.fontawesome.com/d3fa3cecaa.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/libs/bootstrapv4.5/css/bootstrap.css">
+    <script type="text/javascript" src="../static/libs/bootstrapv4.5/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../static/css/home.css">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#author").load("/author");
+        });
+        $(document).ready(function() {
+            $("#products").load("/products");
+        });
+        $(document).ready(function() {
+            $("#categories").load("/category");
+        });
+        $(document).ready(function() {
+            $("#imgs").load("/img_sach");
+        });
+
+        function tabs(e, number) {
+            var li = document.getElementsByClassName("item");
+            for (var i of li) {
+                i.classList.remove("active");
+            }
+            e.classList.add("active");
+            document.getElementById("cinema").style.left = -number * 1200 + "px";
+        }
+    </script>
 </head>
 
+
 <body>
+    <section class="sectional header">
+        <div class="container-fluid">
+            <div class="logo">
+                <a href="/"><img src="static/imgs/logo.png"></a>
+            </div>
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="#" style="color: #f86d72;border-bottom: 1px solid #f86d72">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li class="dropdows">
+                        <a href="/admin">Admin<i class="fas fa-chevron-down" style="margin-left: 5px;font-size: 0.6em;"></i></a>
+                        <div class="dropdows-menu" style="z-index: 100000;">
+                            <div class="dropdows-item"><a href="#" onclick="tabs(this,0)" class="item active">Author</a></div>
+                            <div class="dropdows-item"><a href="#" onclick="tabs(this,1)" class="item">Category</a></div>
+                            <div class="dropdows-item"><a href="#" onclick="tabs(this,2)" class="item">Image product</a></div>
+                            <div class="dropdows-item"><a href="#" onclick="tabs(this,3)" class="item">Product</a></div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="menu_seach">
+                    <li><a href="search"><i class="fas fa-search"></i></a></li>
+                    <li><a href="#"><i class="far fa-heart"></i></a></li>
+                    <li><a href="login"><i class="far fa-user-circle"></i></a></li>
+                    <li><a href="#"><i class="fas fa-shopping-bag"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- <div class="container">
+        <i class='fas fa-user-secret' style='margin: 100px 5px 0 490px;font-size:9em;color:#000'></i><br>
+        <h1 style='font-size:30px;margin:20px 0;width:100%;text-align:center;'>Welcome !</h1><br>
+        <p style='text-align:center'>Select the website you want to go to:</p>
+        <a class='btn btn-secondary' href='category' style='margin:40px;'>Quản Lý Danh Mục <i class='fas fa-calendar-week'></i></a>
+        <a class='btn btn-success' href='author' style='margin:40px;'>Quản Lý Tác giả <i class='fas fa-desktop'></i></a>
+        <a class='btn btn-warning' href='product' style='margin:40px;'>Quản Lý Sách<i class='fab fa-product-hunt'></i></a>
+        <a class='btn btn-primary' href='img_sach' style='margin:40px;'>Quản Lý Ảnh <i class='fab fa-bandcamp'></i></a>
+    </div> -->
     <div class="container">
-       <i class='fas fa-user-secret' style='margin: 100px 5px 0 490px;font-size:9em;color:#000'></i><br>
-            <h1 style='font-size:30px;margin:20px 0;width:100%;text-align:center;'>Welcome !</h1><br>
-            <p style='text-align:center'>Select the website you want to go to:</p>
-            <a class='btn btn-secondary' href='category' style='margin:40px;'>Quản Lý Danh Mục <i class='fas fa-calendar-week'></i></a>
-            <a class='btn btn-success' href='author' style='margin:40px;'>Quản Lý Tác giả <i class='fas fa-desktop'></i></a>
-            <a class='btn btn-warning' href='product' style='margin:40px;'>Quản Lý Sách<i class='fab fa-product-hunt'></i></a>
-            <a class='btn btn-primary' href='img_sach' style='margin:40px;'>Quản Lý Ảnh <i class='fab fa-bandcamp'></i></a>
+        <div class="tab-content">
+            <div class="cinema" id="cinema">
+                <div id="author" class="tab active">
+                    dsasad
+                </div>
+                <div id="products" class="tab">
+                    Profile
+                </div>
+                <div id="imgs" class="tab">
+                    Message
+                </div>
+                <div id="categories" class="tab">
+                    Setting
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<style>
+    .tab-content {
+        float: left;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        height: 1000px;
+    }
+    
+    .tab-content .tab {
+        float: left;
+        width: 100%;
+        padding: 20px;
+        height: 1000px;
+        width: 1200px;
+        /*display: none;*/
+    }
+    
+    .tab-content .cinema {
+        height: 1000px;
+        width: 4800px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: all 400ms;
+    }
+</style>
 
 </html>

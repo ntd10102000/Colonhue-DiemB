@@ -18,7 +18,7 @@
         {% for i in ds %}
         <tr>
             {% if i[0] == id_tacgia %}
-            <form action="/updated?id_tacgia={{i[0]}}" enctype="multipart/form-data" method="POST">
+            <form action="/updated_author?id_tacgia={{i[0]}}" enctype="multipart/form-data" method="POST">
                 <td>{{i[0]}}</td>
                 <td><input type="text" value="{{i[1]}}" name="ten_tacgia"></td>
                 <td><input class="form-control" type="file" value="{{i[2]}}" name="avt_tacgia" multiple=""></td>
@@ -28,11 +28,13 @@
                     <input type="submit" class="btn btn-primary" value="Cập nhật">
                 </td>
             </form>
-            {% else %} {% for x in i %}
-            <td>{{x}}</td>
-            {% endfor %}
+            {% else %}
+            <td>{{i[0]}}</td>
+            <td>{{i[1]}}</td>
+            <td><img src="{{i[2]}}" alt="" style="max-width:100px" /></td>
+            <td>{{i[3]}}</td>
             <td>
-                <a href="/delete?id_tacgia={{i[0]}}" class="btn btn-danger">Xóa</a>
+                <a href="/delete_author?id_tacgia={{i[0]}}" class="btn btn-danger">Xóa</a>
                 <a href="?id_tacgia={{i[0]}}" class="btn btn-primary">Sửa</a>
             </td>
             {% endif %}

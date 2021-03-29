@@ -10,13 +10,16 @@ err = ''
 
 @app.route('/')
 def index():
-    if "username" in session:
-        sql = "select * from db_user"
-        cursor.execute(sql)
-        record = cursor.fetchall()
-        return render_template("home.html", r=record, us=session["username"])
-    else: 
-        return redirect("/login")
+    new_arrivals = "select * from home_new_arrivals;"
+    cursor.execute(new_arrivals)
+    result_na = cursor.fetchall()
+    featured = "select * from home_featured;"
+    cursor.execute(featured)
+    result_featured = cursor.fetchall()
+    author = "select * from home_author;"
+    cursor.execute(author)
+    result_author = cursor.fetchall()
+    return render_template("home.html", rna = result_na, rf = result_featured, ra = result_author)
 
 @app.route("/login")
 def login():
@@ -72,13 +75,13 @@ def signup_dk():
 def products():
     if "username" in session:
         id_sach = request.args.get("id_sach", type = int)
-        sql = "select * from db_sach order by id_sach ASC"
+        sql = "select * from products_admin"
         cursor.execute(sql)
         record = cursor.fetchall()
-        sql1 = "select id_tacgia, ten_tacgia from db_tacgia"
+        sql1 = "select * from products_author_admin"
         cursor.execute(sql1)
         record1 = cursor.fetchall()
-        sql2 = "select id_dm, ten_dm from db_danhmuc"
+        sql2 = "select * from products_categories_admin"
         cursor.execute(sql2)
         record2 = cursor.fetchall()
         return render_template("admin_product.html", ds=record, id_sach=id_sach,ds1=record1,ds2=record2)
@@ -86,11 +89,11 @@ def products():
         return redirect("/login")
 @app.route("/insert_product")
 def insert_product():
-    sql = "select id_tacgia, ten_tacgia from db_tacgia"
+    sql = "select * from products_author_admin"
     cursor.execute(sql)
     record = cursor.fetchall()
     print(record)
-    sql1 = "select id_dm, ten_dm from db_danhmuc"
+    sql1 = "select * from products_categories_admin"
     cursor.execute(sql1)
     record1 = cursor.fetchall()
     print(record1)
@@ -98,7 +101,6 @@ def insert_product():
 
 @app.route("/inserted_product", methods=["POST"])
 def inserted_product():
-    
     ten_sach = request.form.get("ten_sach")
     id_tacgia = request.form.get("id_tacgia")
     gia_sach = request.form.get("gia_sach")
@@ -131,9 +133,6 @@ def updated_product():
     mota = request.form.get("mota")
     trang_thai = request.form.get("trang_thai")
     id_dm = request.form.get("id_dm")  
-
-    print(ten_sach)
-
     sql = f"update db_sach set ten_sach = N'{ten_sach}',id_tacgia={id_tacgia}, gia_sach={gia_sach}, soluong={soluong}, so_sao={so_sao}, mota=N'{mota}', trang_thai={trang_thai},id_dm={id_dm} where id_sach = {id_sach}"
     cursor.execute(sql)
     connection.commit()
@@ -143,7 +142,7 @@ def updated_product():
 def author():
     if "username" in session:
         id_tacgia = request.args.get("id_tacgia", type = int)
-        sql = "select * from db_tacgia order by id_tacgia ASC"
+        sql = "select * from author_admin"
         cursor.execute(sql)
         record = cursor.fetchall()
         return render_template("admin_author.html", ds=record, id_tacgia=id_tacgia)
@@ -171,7 +170,7 @@ def inserted_actor():
     connection.commit()
     return redirect("/insert_author")
 
-@app.route("/delete")
+@app.route("/delete_author")
 def delete():
     id_tacgia = request.args.get("id_tacgia", type = int)
     sql = f"delete from db_tacgia where id_tacgia = {id_tacgia}" 
@@ -179,16 +178,18 @@ def delete():
     connection.commit()
     return redirect("/author")
 
-@app.route("/updated", methods=["POST"])
+@app.route("/updated_author", methods=["POST"])
 def updated():
     id_tacgia = request.args.get("id_tacgia", type = int)
     ten_tacgia = request.form.get("ten_tacgia")
     gioithieu = request.form.get("gioithieu")
-    avt_tacgia = request.form.get("avt_tacgia")
-
-    print(ten_tacgia)
-
-    sql = f"update db_tacgia set ten_tacgia = N'{ten_tacgia}', gioi_thieu = N'{gioithieu}', avt_tacgia = N'{avt_tacgia}' where id_tacgia = {id_tacgia}"
+    avt_tacgia = ""
+    for uploaded_file in request.files.getlist("avt_tacgia"):
+        if uploaded_file.filename != "":
+            avt_tacgia = uploaded_file.filename
+            print(uploaded_file.filename)
+            uploaded_file.save(os.path.join("static/imgs", uploaded_file.filename))
+    sql = f"update db_tacgia set ten_tacgia = N'{ten_tacgia}', avt_tacgia = '../static/imgs/{avt_tacgia}', gioi_thieu = N'{gioithieu}' where id_tacgia = {id_tacgia}"
     cursor.execute(sql)
     connection.commit()
     return redirect("/author")
@@ -197,10 +198,10 @@ def updated():
 def img_sach():
     if "username" in session:
         id_img = request.args.get("id_img", type = int)
-        sql = "select img_sach.id_img, img_sach.link_img, db_sach.ten_sach, img_sach.id_sach from img_sach inner join db_sach on img_sach.id_sach = db_sach.id_sach order by id_img ASC"
+        sql = "select * from img_admin;"
         cursor.execute(sql)
         record = cursor.fetchall()
-        sql1 = "select * from db_sach order by id_sach ASC"
+        sql1 = "select * from products_admin"
         cursor.execute(sql1)
         record1 = cursor.fetchall()
         return render_template("admin_img.html", ds=record, id_img=id_img, ds1=record1)
@@ -209,7 +210,7 @@ def img_sach():
 
 @app.route("/insert_img")
 def insert_img():
-    sql1 = "select id_sach, ten_sach from db_sach order by id_sach ASC"
+    sql1 = "select * from products_admin"
     cursor.execute(sql1)
     record1 = cursor.fetchall()
     return render_template("insert_img.html", ds=record1)
@@ -257,7 +258,7 @@ def updated_img():
 def category():
     if "username" in session:
         id_dm = request.args.get("id_dm", type = int)
-        sql = "select * from db_danhmuc order by id_dm ASC"
+        sql = "select * from products_categories_admin"
         cursor.execute(sql)
         record = cursor.fetchall()
         return render_template("admin_category.html", ds=record, id_dm=id_dm)
@@ -302,7 +303,10 @@ def updated_category():
 
 @app.route("/admin")
 def admin():
-    return render_template("admin.html")
+    if "username" in session:
+        return render_template("admin.html")
+    else: 
+        return redirect("/login")
 
 @app.route("/shop", methods=["GET"])
 def shop():
@@ -311,27 +315,27 @@ def shop():
     min_s = request.args.get("min", type = int)
     dm = request.args.get("dm", type = int)
     tg = request.args.get("tg", type = int)
-    sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach;"
+    sql = f"SELECT * FROM shop;"
     if keyword != None:
-        sql = f"SELECT a.*, c.ten_tacgia, img.link_img FROM db_sach AS a INNER JOIN db_danhmuc as b ON b.id_dm = a.id_dm INNER JOIN db_tacgia as c ON c.id_tacgia = a.id_tacgia INNER JOIN img_sach AS img ON a.id_sach = img.id_sach WHERE a.ten_sach LIKE N'%{keyword}%' OR b.ten_dm LIKE N'%{keyword}%' OR c.ten_tacgia LIKE N'%{keyword}%';"
+        sql = f"select * from search_keyword WHERE ten_sach LIKE N'%{keyword}%' OR ten_dm LIKE N'%{keyword}%' OR ten_tacgia LIKE N'%{keyword}%';"
     elif max_s != None and min_s != None:
-        sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach WHERE a.gia_sach BETWEEN '{min_s}' AND '{max_s}';"
+        sql = f"select * from search_minmax_tacgia WHERE gia_sach BETWEEN '{min_s}' AND '{max_s}';"
     elif dm != None:
-        sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach INNER JOIN db_danhmuc as dm ON dm.id_dm = a.id_dm where dm.id_dm = {dm};"
+        sql = f"select * from search_categories where id_dm = {dm};"
     elif tg != None:
-        sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach where db_tacgia.id_tacgia = {tg};"
+        sql = f"select * from search_minmax_tacgia where id_tacgia = {tg};"
     cursor.execute(sql)
     record = cursor.fetchall()
     sql_tacgia = f"select * from db_tacgia;"
     cursor.execute(sql_tacgia)
     record_tacgia = cursor.fetchall()
-    sql_count_tacgia = f"SELECT db_sach.id_tacgia, COUNT(db_sach.id_tacgia) AS soluong_tg FROM db_sach group by db_sach.id_tacgia;"
+    sql_count_tacgia = f"select * from count_author"
     cursor.execute(sql_count_tacgia)
     record_count_tacgia = cursor.fetchall()
     sql_danhmuc = f"select * from db_danhmuc;"
     cursor.execute(sql_danhmuc)
     record_danhmuc = cursor.fetchall()
-    sql_count_danhmuc = f"SELECT db_sach.id_dm, COUNT(db_sach.id_dm) AS soluong_dm FROM db_sach group by db_sach.id_dm;"
+    sql_count_danhmuc = f"select * from count_category"
     cursor.execute(sql_count_danhmuc)
     record_count_danhmuc = cursor.fetchall()
     connection.commit()
@@ -340,10 +344,10 @@ def shop():
 @app.route("/product", methods=["GET"])
 def product():
     id_sach = request.args.get("id_sach", type = int)
-    sql = f"SELECT a.*, db_tacgia.ten_tacgia, d.link_img, dm.ten_dm FROM db_sach AS a INNER JOIN db_tacgia ON a.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach as d ON d.id_sach = a.id_sach INNER JOIN db_danhmuc as dm ON dm.id_dm = a.id_dm where a.id_sach = {id_sach};"
+    sql = f"SELECT * from search_categories where id_sach = {id_sach};"
     cursor.execute(sql)
     rs = cursor.fetchall()
-    sql_lq = f"SELECT db_sach.*, db_tacgia.ten_tacgia, img_sach.link_img FROM db_sach INNER JOIN db_tacgia ON db_sach.id_tacgia = db_tacgia.id_tacgia INNER JOIN img_sach ON db_sach.id_sach = img_sach.id_sach WHERE id_dm IN (SELECT id_dm FROM db_sach WHERE id_sach = {id_sach}) or db_sach.id_tacgia IN (SELECT id_tacgia FROM db_sach WHERE id_sach = {id_sach}) limit 4;"
+    sql_lq = f"select * from search_minmax_tacgia WHERE id_dm IN (SELECT id_dm FROM db_sach WHERE id_sach = {id_sach}) or id_tacgia IN (SELECT id_tacgia FROM db_sach WHERE id_sach = {id_sach}) limit 4;"
     cursor.execute(sql_lq)
     lq = cursor.fetchall()
     connection.commit()
@@ -363,4 +367,6 @@ def product():
 #     return redirect("/file")
 
 
- 
+#  if "username" in session:
+#     else: 
+#         return redirect("/login")

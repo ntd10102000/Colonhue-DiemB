@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Hau</title>
+    <title>Co lo nhue</title>
     <script src="https://kit.fontawesome.com/d3fa3cecaa.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -17,15 +17,15 @@
     <section class="sectional header">
         <div class="container-fluid">
             <div class="logo">
-                <a href="#"><img src="static/imgs/logo.png"></a>
+                <a href="/"><img src="static/imgs/logo.png"></a>
             </div>
             <div class="right">
                 <ul class="menu">
-                    <li><a href="#" style="color: #f86d72;border-bottom: 1px solid #f86d72">Home</a></li>
-                    <li><a href="#">Shop</a></li>
+                    <li><a href="/" style="color: #f86d72;border-bottom: 1px solid #f86d72">Home</a></li>
+                    <li><a href="/shop">Shop</a></li>
                     <li><a href="#">Blog</a></li>
                     <li class="dropdows">
-                        <a href="#">Categorys<i class="fas fa-chevron-down" style="margin-left: 5px;font-size: 0.6em;"></i></a>
+                        <a href="/shop">Categorys<i class="fas fa-chevron-down" style="margin-left: 5px;font-size: 0.6em;"></i></a>
                         <div class="dropdows-menu">
                             <div class="dropdows-item"><a href="#">Calendars</a></div>
                             <div class="dropdows-item"><a href="#">Diary</a></div>
@@ -33,9 +33,9 @@
                     </li>
                 </ul>
                 <ul class="menu_seach">
-                    <li><a href="search"><i class="fas fa-search"></i></a></li>
+                    <li><a href="/shop"><i class="fas fa-search"></i></a></li>
                     <li><a href="#"><i class="far fa-heart"></i></a></li>
-                    <li><a href="login"><i class="far fa-user-circle"></i></a></li>
+                    <li><a href="/login"><i class="far fa-user-circle"></i></a></li>
                     <li><a href="#"><i class="fas fa-shopping-bag"></i></a></li>
                 </ul>
             </div>
@@ -56,7 +56,7 @@
                             <div class="slide1_title">
                                 <h3>Best seller book 2019</h3>
                                 <h2>40% discount on books<br/><i>by</i> Hanamya</h2>
-                                <a href="#">Shop now</a>
+                                <a href="/shop">Shop now</a>
                             </div>
                         </div>
                         <div class="carousel-item">
@@ -64,7 +64,7 @@
                             <div class="slide1_title">
                                 <h3>Best seller book 2019</h3>
                                 <h2>40% discount on books<br/><i>by</i> Hanamya</h2>
-                                <a href="#">Shop now</a>
+                                <a href="/shop">Shop now</a>
                             </div>
                         </div>
                         <div class="carousel-item">
@@ -72,7 +72,7 @@
                             <div class="slide1_title">
                                 <h3>Best seller book 2019</h3>
                                 <h2>40% discount on books<br/><i>by</i> Hanamya</h2>
-                                <a href="#">Shop now</a>
+                                <a href="/shop">Shop now</a>
                             </div>
                         </div>
                     </div>
@@ -112,134 +112,24 @@
                         <div class="new_arrivals h2">
                             <h2>New arrivals</h2>
                             <div class="h2_gach"></div>
+                            {% for i in rna %}
                             <div class="col-xl-3 new_product">
                                 <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
+                                    <img src="{{i[10]}}" class="image_1" />
                                     <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
+                                        <img src="{{i[10]}}" class="image" />
                                         <div class="product_hover_a">
                                             <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
+                                            <a href="/product?id_sach={{i[0]}}"><i class="fas fa-search a"></i></a>
                                             <a href="#"><i class="far fa-heart a"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
+                                <a href="/product?id_sach={{i[0]}}">{{i[1]}}</a>
+                                <h3><i>by</i> <a href="/shop?tg={{i[2]}}"> {{i[9]}}</a></h3>
+                                <p>${{i[3]}}</p>
                             </div>
-                            <div class="col-xl-3 new_product">
-                                <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
-                                    <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
-                                        <div class="product_hover_a">
-                                            <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
-                                            <a href="#"><i class="far fa-heart a"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
-                            </div>
-                            <div class="col-xl-3 new_product">
-                                <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
-                                    <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
-                                        <div class="product_hover_a">
-                                            <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
-                                            <a href="#"><i class="far fa-heart a"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
-                            </div>
-                            <div class="col-xl-3 new_product">
-                                <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
-                                    <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
-                                        <div class="product_hover_a">
-                                            <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
-                                            <a href="#"><i class="far fa-heart a"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
-                            </div>
-                            <div class="col-xl-3 new_product">
-                                <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
-                                    <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
-                                        <div class="product_hover_a">
-                                            <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
-                                            <a href="#"><i class="far fa-heart a"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
-                            </div>
-                            <div class="col-xl-3 new_product">
-                                <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
-                                    <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
-                                        <div class="product_hover_a">
-                                            <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
-                                            <a href="#"><i class="far fa-heart a"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
-                            </div>
-                            <div class="col-xl-3 new_product">
-                                <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
-                                    <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
-                                        <div class="product_hover_a">
-                                            <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
-                                            <a href="#"><i class="far fa-heart a"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
-                            </div>
-                            <div class="col-xl-3 new_product">
-                                <div class="img_product">
-                                    <img src="static/imgs/Image-27.jpg" class="image_1" />
-                                    <div class="product_hover">
-                                        <img src="static/imgs/Image-14.jpg" class="image" />
-                                        <div class="product_hover_a">
-                                            <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                            <a href="#"><i class="fas fa-search a"></i></a>
-                                            <a href="#"><i class="far fa-heart a"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">Delicious Place</a>
-                                <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                                <p>$35.00</p>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -257,11 +147,10 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <div class="designer_team">
-                                            <img src="static/imgs/our-team4.jpg" />
-                                            <a href="#"> Davis Orchari</a>
+                                            <img src="{{ra[0][2]}}" />
+                                            <a href="/shop?tg={{ra[0][0]}}"> {{ra[0][1]}}</a>
                                             <h3>Art, Drama, Novel, Writer</h3>
-                                            <p>Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibhroin gravida nibh
-                                                vel velit auctor aliquet. Aenean sollicitudin,...
+                                            <p>{{ra[0][3]}}
                                             </p>
                                             <ul>
                                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -275,11 +164,10 @@
                                     </div>
                                     <div class="carousel-item">
                                         <div class="designer_team">
-                                            <img src="static/imgs/our-team4.jpg" />
-                                            <a href="#"> Davis Orchari</a>
+                                            <img src="{{ra[1][2]}}" />
+                                            <a href="/shop?tg={{ra[1][0]}}"> {{ra[1][1]}}</a>
                                             <h3>Art, Drama, Novel, Writer</h3>
-                                            <p>Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibhroin gravida nibh
-                                                vel velit auctor aliquet. Aenean sollicitudin,...
+                                            <p>{{ra[1][3]}}
                                             </p>
                                             <ul>
                                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -293,11 +181,10 @@
                                     </div>
                                     <div class="carousel-item">
                                         <div class="designer_team">
-                                            <img src="imgs/our-team4.jpg" />
-                                            <a href="#"> Davis Orchari</a>
+                                            <img src="{{ra[2][2]}}" />
+                                            <a href="/shop?tg={{ra[2][0]}}"> {{ra[2][1]}}</a>
                                             <h3>Art, Drama, Novel, Writer</h3>
-                                            <p>Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibhroin gravida nibh
-                                                vel velit auctor aliquet. Aenean sollicitudin,...
+                                            <p>{{ra[2][3]}}
                                             </p>
                                             <ul>
                                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -327,62 +214,22 @@
             </div>
             <div class="col-xl-12 featured">
                 <div class="row">
+                    {% for i in rf %}
                     <div class="col-xl-3 featured_content">
-                        <img src="static/imgs/book1_1.jpg" class="image_1" />
+                        <img src="{{i[10]}}" class="image_1" />
                         <div class="product_hover" style="padding: 0 15px">
-                            <img src="static/imgs/book1_2.jpg" class="image" />
+                            <img src="{{i[10]}}" class="image" />
                             <div class="product_hover_a" style="left: 45% !important;">
                                 <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                <a href="#"><i class="fas fa-search a"></i></a>
+                                <a href="/product?id_sach={{i[0]}}"><i class="fas fa-search a"></i></a>
                                 <a href="#"><i class="far fa-heart a"></i></a>
                             </div>
                         </div>
-                        <a href="#">Cup Cake Diraes</a>
-                        <h3><i>by</i> <a href="#"> Anna Hillton</a></h3>
+                        <a href="/product?id_sach={{i[0]}}">{{i[1]}}</a>
+                        <h3><i>by</i> <a href="/shop?tg={{i[2]}}"> {{i[9]}}</a></h3>
                         <p>$35.00</p>
                     </div>
-                    <div class="col-xl-3 featured_content">
-                        <img src="static/imgs/book2_1.jpg" class="image_1" />
-                        <div class="product_hover" style="padding: 0 15px">
-                            <img src="static/imgs/book2_2.jpg" class="image" />
-                            <div class="product_hover_a" style="left: 45% !important;">
-                                <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                <a href="#"><i class="fas fa-search a"></i></a>
-                                <a href="#"><i class="far fa-heart a"></i></a>
-                            </div>
-                        </div>
-                        <a href="#">Delicious Place</a>
-                        <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                        <p>$35.00</p>
-                    </div>
-                    <div class="col-xl-3 featured_content">
-                        <img src="static/imgs/book3_1.jpg" class="image_1" />
-                        <div class="product_hover" style="padding: 0 15px">
-                            <img src="static/imgs/book3_2.jpg" class="image" />
-                            <div class="product_hover_a" style="left: 45% !important;">
-                                <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                <a href="#"><i class="fas fa-search a"></i></a>
-                                <a href="#"><i class="far fa-heart a"></i></a>
-                            </div>
-                        </div>
-                        <a href="#">Delicious Place</a>
-                        <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                        <p>$35.00</p>
-                    </div>
-                    <div class="col-xl-3 featured_content">
-                        <img src="static/imgs/book4_1.jpg" class="image_1" />
-                        <div class="product_hover" style="padding: 0 15px">
-                            <img src="static/imgs/book4_2.jpg" class="image" />
-                            <div class="product_hover_a" style="left: 45% !important;">
-                                <a href="#"><i class="fas fa-cart-arrow-down a"></i></a>
-                                <a href="#"><i class="fas fa-search a"></i></a>
-                                <a href="#"><i class="far fa-heart a"></i></a>
-                            </div>
-                        </div>
-                        <a href="#">Delicious Place</a>
-                        <h3><i>by</i> <a href="#"> Coco Simon</a></h3>
-                        <p>$35.00</p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -392,7 +239,7 @@
             <p>Special event in June</p>
             <h2>Best-Selling book exhibition,
                 <br/> discount up to 50%</h2>
-            <a href="#">Explore Now</a>
+            <a href="/shop">Explore Now</a>
         </div>
     </section>
     <section class="sectional slide5">
