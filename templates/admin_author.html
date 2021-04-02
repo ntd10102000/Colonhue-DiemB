@@ -1,46 +1,33 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <title>Index</title>
-</head>
-
-<body>
-    <a href="/insert_author" class="btn btn-success">Thêm tác giả</a>
-    <table class="table">
-        <tr>
-            <th>Mã tác giả</th>
-            <th>Tên tác giả</th>
-            <th>Ảnh tác giả</th>
-            <th>Giới thiệu</th>
-        </tr>
-        {% for i in ds %}
-        <tr>
-            {% if i[0] == id_tacgia %}
-            <form action="/updated_author?id_tacgia={{i[0]}}" enctype="multipart/form-data" method="POST">
-                <td>{{i[0]}}</td>
-                <td><input type="text" value="{{i[1]}}" name="ten_tacgia"></td>
-                <td><input class="form-control" type="file" value="{{i[2]}}" name="avt_tacgia" multiple=""></td>
-                <td><input type="text" value="{{i[3]}}" name="gioithieu"></td>
-                <td>
-                    <a href="/" class="btn btn-danger">Hủy</a>
-                    <input type="submit" class="btn btn-primary" value="Cập nhật">
-                </td>
-            </form>
-            {% else %}
+<table class="table">
+    <tr>
+        <th>Mã tác giả</th>
+        <th>Tên tác giả</th>
+        <th>Ảnh tác giả</th>
+        <th>Giới thiệu</th>
+    </tr>
+    {% for i in ds_author %}
+    <tr>
+        {% if i[0] == id_tacgia %}
+        <form action="/updated_author?id_tacgia={{i[0]}}" enctype="multipart/form-data" method="POST">
             <td>{{i[0]}}</td>
-            <td>{{i[1]}}</td>
-            <td><img src="{{i[2]}}" alt="" style="max-width:100px" /></td>
-            <td>{{i[3]}}</td>
+            <td><input type="text" value="{{i[1]}}" name="ten_tacgia"></td>
+            <td><input class="form-control" type="file" value="{{i[2]}}" name="avt_tacgia" multiple=""></td>
+            <td><input type="text" value="{{i[3]}}" name="gioithieu"></td>
             <td>
-                <a href="/delete_author?id_tacgia={{i[0]}}" class="btn btn-danger">Xóa</a>
-                <a href="?id_tacgia={{i[0]}}" class="btn btn-primary">Sửa</a>
+                <a href="/admin" class="btn btn-danger">Hủy</a>
+                <input type="submit" class="btn btn-primary" value="Cập nhật">
             </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-
-</html>
+        </form>
+        {% else %}
+        <td>{{i[0]}}</td>
+        <td>{{i[1]}}</td>
+        <td><img src="{{i[2]}}" alt="" style="max-width:100px" /></td>
+        <td>{{i[3]}}</td>
+        <td>
+            <a href="/delete_author?id_tacgia={{i[0]}}" class="btn btn-danger">Xóa</a>
+            <a href="?id_tacgia={{i[0]}}" class="btn btn-primary">Sửa</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>

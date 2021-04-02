@@ -1,63 +1,50 @@
-<!DOCTYPE html>
-<html>
+<table class="table">
+    <tr>
+        <th>Mã sách</th>
+        <th>Tên sách</th>
+        <th>Mã tác giả</th>
+        <th>Gía sách</th>
+        <th>Số lượng</th>
+        <th>Số sao</th>
+        <th>Mô tả</th>
+        <th>Trạng thái</th>
+        <th>Mã danh mục</th>
+    </tr>
+    {% for i in ds_products %}
+    <tr>
+        {% if i[0] == id_sach %}
+        <form action="/updated_product?id_sach={{i[0]}}" method="POST">
+            <td>{{i[0]}}</td>
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <title>Index</title>
-</head>
-
-<body>
-    <a href="/insert_product" class="btn btn-success">Thêm sách</a>
-    <table class="table">
-        <tr>
-            <th>Mã sách</th>
-            <th>Tên sách</th>
-            <th>Mã tác giả</th>
-            <th>Gía sách</th>
-            <th>Số lượng</th>
-            <th>Số sao</th>
-            <th>Mô tả</th>
-            <th>Trạng thái</th>
-            <th>Mã danh mục</th>
-        </tr>
-        {% for i in ds %}
-        <tr>
-            {% if i[0] == id_sach %}
-            <form action="/updated_product?id_sach={{i[0]}}" method="POST">
-                <td>{{i[0]}}</td>
-
-                <td><input type="text" value="{{i[1]}}" name="ten_sach"></td>
-                <td><select name='id_tacgia'>
-                    {% for i in ds1 %}
+            <td><input style="width: 150px;" type="text" value="{{i[1]}}" name="ten_sach"></td>
+            <td><select name='id_tacgia'>
+                    {% for i in ds_products_author %}
                     <option value="{{i[0]}}">{{i[1]}}</option>
                     {% endfor %}
                 </select></td>
-                <td><input type="text" value="{{i[3]}}" name="gia_sach"></td>
-                <td><input type="text" value="{{i[4]}}" name="soluong"></td>
-                <td><input type="text" value="{{i[5]}}" name="so_sao"></td>
-                <td><input type="text" value="{{i[6]}}" name="mota"></td>
-                <td><input type="text" value="{{i[7]}}" name="trang_thai"></td>
-                <td><select name='id_dm'>
-                    {% for i in ds2 %}
+            <td><input style="width: 70px;" type="text" value="{{i[3]}}" name="gia_sach"></td>
+            <td><input style="width: 70px;" type="text" value="{{i[4]}}" name="soluong"></td>
+            <td><input style="width: 70px;" type="text" value="{{i[5]}}" name="so_sao"></td>
+            <td><input style="width: 250px;" type="text" value="{{i[6]}}" name="mota"></td>
+            <td><input style="width: 70px;" type="text" value="{{i[7]}}" name="trang_thai"></td>
+            <td><select name='id_dm'>
+                    {% for i in ds_products_categories %}
                     <option value="{{i[0]}}">{{i[1]}}</option>
                     {% endfor %}
                 </select></td>
-                <td>
-                    <a href="/products" class="btn btn-danger">Hủy</a>
-                    <input type="submit" class="btn btn-primary" value="Cập nhật">
-                </td>
-            </form>
-            {% else %} {% for x in i %}
-            <td>{{x}}</td>
-            {% endfor %}
             <td>
-                <a href="/delete_product?id_sach={{i[0]}}" class="btn btn-danger">Xóa</a>
-                <a href="?id_sach={{i[0]}}" class="btn btn-primary">Sửa</a>
+                <a href="/admin" class="btn btn-danger">Hủy</a>
+                <input type="submit" class="btn btn-primary" value="Cập nhật">
             </td>
-            {% endif %}
-        </tr>
+        </form>
+        {% else %} {% for x in i %}
+        <td>{{x}}</td>
         {% endfor %}
-    </table>
-</body>
-
-</html>
+        <td>
+            <a href="/delete_product?id_sach={{i[0]}}" class="btn btn-danger">Xóa</a>
+            <a href="?id_sach={{i[0]}}" class="btn btn-primary">Sửa</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>

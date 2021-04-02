@@ -1,42 +1,29 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <title>Index</title>
-</head>
-
-<body>
-    <a href="/insert_category" class="btn btn-success">Thêm danh mục</a>
-    <table class="table">
-        <tr>
-            <th>Mã danh mục</th>
-            <th>Tên danh mục</th>
-            <th>trạng thái</th>
-        </tr>
-        {% for i in ds %}
-        <tr>
-            {% if i[0] == id_dm %}
-            <form action="/updated_category?id_dm={{i[0]}}" enctype="multipart/form-data" method="POST">
-                <td>{{i[0]}}</td>
-                <td><input type="text" value="{{i[1]}}" name="ten_dm"></td>
-                <td><input type="text" value="{{i[3]}}" name="trang_thai"></td>
-                <td>
-                    <a href="/category" class="btn btn-danger">Hủy</a>
-                    <input type="submit" class="btn btn-primary" value="Cập nhật">
-                </td>
-            </form>
-            {% else %} {% for x in i %}
-            <td>{{x}}</td>
-            {% endfor %}
+<table class="table">
+    <tr>
+        <th>Mã danh mục</th>
+        <th>Tên danh mục</th>
+        <th>trạng thái</th>
+    </tr>
+    {% for i in ds_products_categories %}
+    <tr>
+        {% if i[0] == id_dm %}
+        <form action="/updated_category?id_dm={{i[0]}}" enctype="multipart/form-data" method="POST">
+            <td>{{i[0]}}</td>
+            <td><input type="text" value="{{i[1]}}" name="ten_dm"></td>
+            <td><input type="text" value="{{i[3]}}" name="trang_thai"></td>
             <td>
-                <a href="/delete_category?id_dm={{i[0]}}" class="btn btn-danger">Xóa</a>
-                <a href="?id_dm={{i[0]}}" class="btn btn-primary">Sửa</a>
+                <a href="/admin" class="btn btn-danger">Hủy</a>
+                <input type="submit" class="btn btn-primary" value="Cập nhật">
             </td>
-            {% endif %}
-        </tr>
+        </form>
+        {% else %} {% for x in i %}
+        <td>{{x}}</td>
         {% endfor %}
-    </table>
-</body>
-
-</html>
+        <td>
+            <a href="/delete_category?id_dm={{i[0]}}" class="btn btn-danger">Xóa</a>
+            <a href="?id_dm={{i[0]}}" class="btn btn-primary">Sửa</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
