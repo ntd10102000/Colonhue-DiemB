@@ -1,4 +1,5 @@
 import os
+import json
 from connect import connection, cursor
 from flask import Flask, render_template, request, redirect, session
 
@@ -335,3 +336,15 @@ def product():
 #  if "username" in session:
 #     else: 
 #         return redirect("/login")
+@app.route("/maps")
+def maps():
+    cursor.execute("select title, address, time, img, long, lat from db_maps")
+    version = cursor.fetchall() 
+    geo_json = []
+    for row in version:
+        geo_json.append({
+            "loc": [row[4], row[5]],
+            "title": row[0],
+        })
+    cursor.close()
+    return render_template("maps.html",data=json.dumps(geo_json))
