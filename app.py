@@ -343,8 +343,11 @@ def maps():
     geo_json = []
     for row in version:
         geo_json.append({
-            "loc": [row[4], row[5]],
+            "loc": [row[5], row[4]],
             "title": row[0],
+            "address": row[1],
+            "time": row[2],
+            "img": row[3]
         })
     cursor.close()
-    return render_template("maps.html",data=json.dumps(geo_json))
+    return render_template("maps.html", data = json.dumps(geo_json))

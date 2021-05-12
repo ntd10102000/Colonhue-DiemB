@@ -76,7 +76,7 @@
     <script>
         var geo = JSON.parse(document.getElementById("geo").value);
 
-        var data1 = JSON.parse(geo);
+        // var data1 = JSON.parse(geo);
 
         var data = [{
             "loc": [41.575330, 13.102411],
@@ -150,6 +150,32 @@
         }];
 
         console.log(geo);
+        console.log(data);
+        var map = new L.Map('map', {
+            zoom: 9,
+            center: new L.latLng(geo[0].loc)
+        }); //set center from first location
+
+        map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')); //base layer
+
+        var markersLayer = new L.LayerGroup(); //layer contain searched elements
+        map.addLayer(markersLayer);
+
+        map.addControl(new L.Control.Search({
+            layer: markersLayer
+        })); //inizialize search control
+
+        ////////////populate map with markers from sample data
+        for (i in geo) {
+            var title = geo[i].title, //value searched
+                loc = geo[i].loc, //position found
+                marker = new L.Marker(new L.latLng(loc), {
+                    title: title
+                }); //se property searched
+            marker.bindPopup('title: ' + title);
+            // marker.bindPopup('<img src="' + img + '"/>');
+            markersLayer.addLayer(marker);
+        }
     </script>
 
 
