@@ -349,5 +349,5 @@ def maps():
             "time": row[2],
             "img": row[3]
         })
-    cursor.close()
+    # cursor.close()
     return render_template("maps.html", data = json.dumps(geo_json))
