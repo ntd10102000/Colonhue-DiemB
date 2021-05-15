@@ -1,0 +1,105 @@
+insert into db_maps(title, img, long, lat, address, time) 
+values('ADCBook', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOTNbkx2jffbJd1ZNi2On8oE25je89hp108vl4O=w408-h272-k-no', 
+	   '105.8147436', '21.0153116', 'Nhà 17T2, Toà, 17T3 Hoàng Đạo Thúy, Trung Hoà, Cầu Giấy, Hà Nội 10000, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách Đường Láng', 
+	   'https://maps.gstatic.com/tactile/pane/result-no-thumbnail-1x.png', 
+	   '105.8091177', '21.0084064', '610 Đ. Láng, Trung Hoà, Đống Đa, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách Tiến Thọ', 
+	   'https://lh5.googleusercontent.com/p/AF1QipNPMnE8F-g34f9AQQjRuyX62h1TOrVIOv6pbDQ-=w408-h544-k-no', 
+	   '105.8091177', '21.0084064', '828 Đ. Láng, Láng Thượng, Đống Đa, Hà Nội, Việt Nam', 
+	   '8:00-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà sách Phương Nam', 
+	   'https://lh5.googleusercontent.com/p/AF1QipNasdjyQrJZYFrQ20NI-McO8fkni-J2viwZfdh9=w408-h306-k-no', 
+	   '105.812152', '21.0049469', 'Tầng B2, B2-R1-19-20 - Vincom Mega Mall Royal City, 72A Nguyễn Trãi, Nhân Chính, Thanh Xuân, Hà Nội 100000, Việt Nam', 
+	   '9:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách FAHASA Hà Nội', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOzt7pa7GOW3eTfCVuh1Igzw3hRJAEvlTtNwkDZ=w408-h306-k-no', 
+	   '105.812152', '21.0049469', '338 P. Xã Đàn, Phương Liên, Đống Đa, Hà Nội 100000, Việt Nam', 
+	   '8:00-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà sách Tiền Phong Thủy Lợi', 
+	   'https://lh5.googleusercontent.com/p/AF1QipO8M1QWLiNnGysuu4Oihgey9pYrVYPVF0Zr4cXS=w408-h306-k-no', 
+	   '105.812152', '21.0049469', 'Cổng trường Đại học Thủy Lợi, Tây Sơn, Trung Liệt, Đống Đa, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Hiệu Sách Nhã Nam', 
+	   'https://lh5.googleusercontent.com/p/AF1QipO1SAghqcgpbt_5yWKA6L5WuXayQp9n1WUJQfp7=w408-h306-k-no', 
+	   '105.829972', '21.0298199', '22B12 Phạm Ngọc Thạch, Trung Tự, Đống Đa, Hà Nội, Việt Nam', 
+	   '8:00-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách Cá Chép', 
+	   'https://lh5.googleusercontent.com/p/AF1QipO5JCKJsrrn88C3r75xOoplWw8MZPCnEEsanczu=w408-h272-k-no', 
+	   '105.8147436', '21.0153116', '115 Nguyễn Thái Học, Văn Miếu, Đống Đa, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách Trực Tuyến Pibook.vn', 
+	   'https://lh5.googleusercontent.com/p/AF1QipMO-5b2nvfcBXl5_i5ZTKmM-W1C9DIyMNn44X13=w408-h630-k-no', 
+	   '105.8072948', '21.000725', '44 Tràng Tiền, Hoàn Kiếm, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Hiệu sách Tràng Tiền', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOdiOFNYragqEL6xNR1gxNTrqIUGYWgA8rK0N_b=w408-h272-k-no', 
+	   '105.8458108', '21.0252567', 'Nhà 17T2, Toà, 17T3 Hoàng Đạo Thúy, Trung Hoà, Cầu Giấy, Hà Nội 10000, Việt Nam', 
+	   '8:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách Nguyễn Văn Cừ', 
+	   'https://lh5.googleusercontent.com/p/AF1QipMOm3sOc22WiZxJ0f7czqRnZn1w1roVWR53qLTs=w408-h306-k-no', 
+	   '105.8458108', '21.0252567', '175 P. Giảng Võ, Chợ Dừa, Đống Đa, Hà Nội, Việt Nam', 
+	   '8:00-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Hiệu sách Nhã Nam - 383 Kim Ngưu', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOwq8C3-90v8P2s9QCxDagfFKslKYqHGO6jy9ji=w408-h639-k-no', 
+	   '105.8531722', '21.0019919', '383 Kim Ngưu, Vĩnh Tuy, Hai Bà Trưng, Hà Nội, Việt Nam', 
+	   '8:00-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('NHÀ SÁCH QUYẾT ĐẠT', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOY9u3UFk-b2mCRxYpi4qLJAwunokiUK34tu7PS=w426-h240-k-no', 
+	   '105.8136858', '21.0009815', '15 Vương Thừa Vũ, Khương Thượng, Thanh Xuân, Hà Nội, Việt Nam', 
+	   '0:00-24:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Cửa hàng Sách Giáo dục', 
+	   'https://lh5.googleusercontent.com/p/AF1QipM3AV6TaIOiq0uL0liF68-adc2n6098aHSeG0UQ=w408-h612-k-no', 
+	   '105.8136858', '21.0009815', '232 Tây Sơn, Trung Liệt, Đống Đa, Hà Nội, Việt Nam', 
+	   '6:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà sách Kim Đồng', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOvOsBFeZ64VAPWH3JDytQtTRDgOGykK_tpaqwt=w408-h306-k-no', 
+	   '105.8458683', '21.0251864', '15 Đinh Lễ, Tràng Tiền, Hoàn Kiếm, Hà Nội, Việt Nam', 
+	   '7:00-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà sách Ngoại Văn', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOdczSM4l72KGm5ivXHHIVcL-1ouZDE0S-FX5Wp=w426-h240-k-no', 
+	   '105.8458683', '21.0251864', '44 Tràng Tiền, Hoàn Kiếm, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách Bách Khoa', 
+	   'https://lh5.googleusercontent.com/p/AF1QipOYKSH2QMKRPDZbBKQDPFGmerA-NDbeLkaJWqXz=w408-h306-k-no', 
+	   '105.8386944', '21.0039697', 'A17 Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà Sách Bảo Anh', 
+	   'https://lh5.googleusercontent.com/p/AF1QipN3AryigGICuQspn4M63GgB4ZKsg0UKpnN7Ha9b=w917-h240-k-no', 
+	   '105.8044045', '21.0050676', '154 Trần Bình, Mỹ Đình, Nam Từ Liêm, Hà Nội, Việt Nam', 
+	   '7:00-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà sách Trí Tuệ', 
+	   'https://lh5.googleusercontent.com/p/AF1QipNuK9dDvvlybMU79LmoowVd-YvXSzLwI46U9Mnj=w408-h408-k-no', 
+	   '105.8044045', '21.0050676', '36 Tố Hữu, Trung Văn, Từ Liêm, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà sách Nghĩa Tình', 
+	   'https://lh5.googleusercontent.com/p/AF1QipPo3SsPQ3gwLpBZBFfC4ZAzN9wAZcaJN5d_iGT0=w408-h306-k-no', 
+	   '106.4738167', '20.9010089', 'Ngõ 261, Trần Quốc Hoàn, Nam Từ Liêm, Hà Nội, Việt Nam', 
+	   '7:30-23:00');
+insert into db_maps(title, img, long, lat, address, time) 
+values('Nhà sách Đạo Hạnh', 
+	   'https://lh5.googleusercontent.com/p/AF1QipMoUDlb29nAAVWn2wdmdNUMYmLViI9Ehr4o_uts=w426-h240-k-no', 
+	   '105.7504399', '20.9955425', 'Từ Liêm, Hà Nội, Việt Nam', 
+	   '7:30-22:00');
