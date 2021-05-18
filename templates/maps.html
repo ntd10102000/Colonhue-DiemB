@@ -13,13 +13,15 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <link rel="stylesheet" href="../static/dist/L.Control.Locate.min.css" />
+    <script type="text/javascript" src="../static/dist/Leaflet.Coordinates-0.1.5.min.js"></script>
+    <link rel="stylesheet" href="../static/dist/Leaflet.Coordinates-0.1.5.css" />
 
 
     <title></title>
     <style>
         #map {
             width: 100%;
-            height: 800px;
+            height: 670px;
         }
         
         .leaflet-control-locate a {
@@ -98,6 +100,26 @@
             strings: {
                 title: "Show me where I am, yo!"
             }
+        }).addTo(map);
+
+        L.control.coordinates({
+            position: "bottomleft", //optional default "bootomright"
+            decimals: 2, //optional default 4
+            decimalSeperator: ".", //optional default "."
+            labelTemplateLat: "Latitude: {y}", //optional default "Lat: {y}"
+            labelTemplateLng: "Longitude: {x}", //optional default "Lng: {x}"
+            enableUserInput: true, //optional default true
+            useDMS: false, //optional default false
+            useLatLngOrder: true, //ordering of labels, default false-> lng-lat
+            markerType: L.marker, //optional default L.marker
+            markerProps: {}, //optional default {},
+            labelFormatterLng: function(lng) {
+                return lng + " lng"
+            }, //optional default none,
+            labelFormatterLat: function(lat) {
+                return lat + " lat"
+            }, //optional default none
+            //optional default none
         }).addTo(map);
     </script>
 
