@@ -1,33 +1,141 @@
-<table class="table">
-    <tr>
-        <th>Mã tác giả</th>
-        <th>Tên tác giả</th>
-        <th>Ảnh tác giả</th>
-        <th>Giới thiệu</th>
-    </tr>
-    {% for i in ds_author %}
-    <tr>
-        {% if i[0] == id_tacgia %}
-        <form action="/updated_author?id_tacgia={{i[0]}}" enctype="multipart/form-data" method="POST">
-            <td>{{i[0]}}</td>
-            <td><input type="text" value="{{i[1]}}" name="ten_tacgia"></td>
-            <td><input class="form-control" type="file" value="{{i[2]}}" name="avt_tacgia" multiple=""></td>
-            <td><input type="text" value="{{i[3]}}" name="gioithieu"></td>
-            <td>
-                <a href="/admin" class="btn btn-danger">Hủy</a>
-                <input type="submit" class="btn btn-primary" value="Cập nhật">
-            </td>
-        </form>
-        {% else %}
-        <td>{{i[0]}}</td>
-        <td>{{i[1]}}</td>
-        <td><img src="{{i[2]}}" alt="" style="max-width:100px" /></td>
-        <td>{{i[3]}}</td>
-        <td>
-            <a href="/delete_author?id_tacgia={{i[0]}}" class="btn btn-danger">Xóa</a>
-            <a href="?id_tacgia={{i[0]}}" class="btn btn-primary">Sửa</a>
-        </td>
-        {% endif %}
-    </tr>
-    {% endfor %}
-</table>
+{% include 'admin_head.html' %}
+<style>
+    .table td {
+        padding: 5px;
+    }
+</style>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        {% include 'admin_menu.html' %}
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>DataTables</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">DataTables</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                                    <a class="float-sm-right" data-toggle="modal" data-target="#createRole" style="cursor: pointer">Create new role object</a>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead>
+
+                                            <tr>
+                                                <th>Mã tác giả</th>
+                                                <th>Tên tác giả</th>
+                                                <th>Ảnh tác giả</th>
+                                                <th style="width: 600px;">Giới thiệu</th>
+                                                <th><i class="far fa-keyboard"></i></th>
+                                            </tr>
+                                        </thead>
+                                        {% for i in ds_author %}
+                                        <tbody>
+                                            <tr>
+                                                {% if i[0] == id_tacgia %}
+                                                <form action="/updated_author?id_tacgia={{i[0]}}" enctype="multipart/form-data" method="POST">
+                                                    <td>{{i[0]}}</td>
+                                                    <td><input type="text" value="{{i[1]}}" name="ten_tacgia"></td>
+                                                    <td><input class="form-control" type="file" value="{{i[2]}}" name="avt_tacgia" multiple=""></td>
+                                                    <td><input type="text" value="{{i[3]}}" name="gioithieu"></td>
+                                                    <td>
+                                                        <a href="/admin/author"><i class="far fa-times-circle"></i></a>
+                                                        <input type="submit" class="btn btn-primary" value="Cập nhật">
+                                                    </td>
+                                                </form>
+                                                {% else %}
+                                                <td>{{i[0]}}</td>
+                                                <td>{{i[1]}}</td>
+                                                <td><img src="{{i[2]}}" alt="" style="max-width:100px" /></td>
+                                                <td>{{i[3]}}</td>
+                                                <td>
+                                                    <a href="/delete_author?id_tacgia={{i[0]}}"><i class="far fa-times-circle"></i></a>
+                                                    <a href="?id_tacgia={{i[0]}}"><i class="far fa-edit"></i></a>
+                                                </td>
+                                                {% endif %}
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="createRole" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content col-sm-10" style="margin: 0 auto">
+
+
+                    <div class="modal-body">
+
+                        <form action="/inserted_author" enctype="multipart/form-data" method="POST">
+
+                            <div class="card-body">
+
+                                <div class="form-group">
+
+                                    <label>Nhập vào tên tác giả:</label>
+                                    <input class="form-control" type="text" name="ten_tacgia">
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>Chọn ảnh tác giả:</label>
+                                    <input class="form-control" type="file" name="avt_tacgia" multiple="">Nhập Mô tả:
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>Nhập vào giới thiệu:</label>
+                                    <textarea class="form-control" name="gioithieu"></textarea>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" name="insert" class="btn btn-primary">Create</button>
+                                    <a href="/admin/author" class="btn btn-danger">Hủy</a>
+                                </div>
+                        </form>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {% include 'admin_footer.html' %}
+    </div>
+</body>

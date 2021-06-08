@@ -1,35 +1,127 @@
-<table class="table">
-    <tr>
-        <th>Mã ảnh</th>
-        <th>Ảnh</th>
-        <th>Tên sách</th>
-    </tr>
-    {% for i in ds_img %}
-    <tr>
-        {% if i[0] == id_img %}
-        <form action="/updated_img?id_img={{i[0]}}" enctype="multipart/form-data" method="POST">
-            <td>{{i[0]}}</td>
-            <td><input class="form-control" type="file" value="{{i[1]}}" name="link_img" multiple=""></td>
-            <td><select name='id_sach'>
-                    <option>Chọn sách ... </option>
-                    {% for a in ds_products %}
-                    <option value="{{a[0]}}">{{a[1]}}</option>
-                    {% endfor %}
-                </select></td>
-            <td>
-                <a href="/admin" class="btn btn-danger">Hủy</a>
-                <input type="submit" class="btn btn-primary" value="Cập nhật">
-            </td>
-        </form>
-        {% else %}
-        <td>{{i[0]}}</td>
-        <td><img src="{{i[1]}}" alt="" style="max-width:100px" /></td>
-        <td>{{i[2]}}</td>
-        <td>
-            <a href="/delete_img?id_img={{i[0]}}" class="btn btn-danger">Xóa</a>
-            <a href="?id_img={{i[0]}}" class="btn btn-primary">Sửa</a>
-        </td>
-        {% endif %}
-    </tr>
-    {% endfor %}
-</table>
+{% include 'admin_head.html' %}
+<style>
+    .table td {
+        padding: 5px;
+    }
+</style>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        {% include 'admin_menu.html' %}
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>DataTables</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">DataTables</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                                    <a class="float-sm-right" data-toggle="modal" data-target="#createRole" style="cursor: pointer">Create new role object</a>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã ảnh</th>
+                                                <th>Ảnh</th>
+                                                <th>Tên sách</th>
+                                                <th><i class="far fa-keyboard"></i></th>
+                                            </tr>
+                                        </thead>
+                                        {% for i in ds_img %}
+                                        <tbody>
+                                            <tr>
+                                                {% if i[0] == id_img %}
+                                                <form action="/updated_img?id_img={{i[0]}}" enctype="multipart/form-data" method="POST">
+                                                    <td>{{i[0]}}</td>
+                                                    <td><input class="form-control" type="file" value="{{i[1]}}" name="link_img" multiple=""></td>
+                                                    <td><select name='id_sach'>
+                                                        <option>Chọn sách ... </option>
+                                                        {% for a in ds_products %}
+                                                        <option value="{{a[0]}}">{{a[1]}}</option>
+                                                        {% endfor %}
+                                                    </select></td>
+                                                    <td>
+                                                        <a href="/admin/img"><i class="far fa-times-circle"></i></a>
+                                                        <input type="submit" class="btn btn-primary" value="Cập nhật">
+                                                    </td>
+                                                </form>
+                                                {% else %}
+                                                <td>{{i[0]}}</td>
+                                                <td><img src="{{i[1]}}" alt="" style="max-width:100px" /></td>
+                                                <td>{{i[2]}}</td>
+                                                <td>
+                                                    <a href="/delete_img?id_img={{i[0]}}"><i class="far fa-times-circle"></i></a>
+                                                    <a href="?id_img={{i[0]}}"><i class="far fa-edit"></i></a>
+                                                </td>
+                                                {% endif %}
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="createRole" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content col-sm-10" style="margin: 0 auto">
+                    <div class="modal-body">
+                        <form action="/inserted_img" enctype="multipart/form-data" method="POST">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Chọn vào tên sách:</label>
+                                    <select name='id_sach' class="form-control">
+                                        <option>Chọn sách ....</option>
+                                        {% for i in ds_products %}
+                                        <option value="{{i[0]}}">{{i[1]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nhập vào giới thiệu:</label>
+                                    <input class="form-control" type="file" name="link_img" multiple="">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" name="insert" class="btn btn-primary">Create</button>
+                                    <a href="/admin/img" class="btn btn-danger">Hủy</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% include 'admin_footer.html' %}
+        </div>
+</body>

@@ -146,14 +146,16 @@
             "Cities": markersLayer
         };
 
-
         L.control.layers(baseLayers, overlays).addTo(map);
+
+        //đinhj vi
         lc = L.control.locate({
             strings: {
                 title: "Show me where I am, yo!"
             }
         }).addTo(map);
 
+        //chỉ chuột nấy tọa độ
         L.control.coordinates({
             position: "bottomleft", //optional default "bootomright"
             decimals: 2, //optional default 4
@@ -173,6 +175,9 @@
             }, //optional default none
             //optional default none
         }).addTo(map);
+
+        //vẽ của thầy ngọc
+
         drawnItems = L.featureGroup().addTo(map);
 
         map.addControl(new L.Control.Draw({

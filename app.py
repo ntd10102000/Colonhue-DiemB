@@ -33,11 +33,10 @@ def login_dn():
 
     sql = "select * from db_user where us = '"+us+"' and pa='"+pa+"'"
     cursor.execute(sql)
-    # Fetch result
     record = cursor.fetchall()
     if(len(record)==1):
         session["username"] = us
-        return redirect("/")
+        return redirect("/admin")
     else:
         err = 'Mật khẩu hoặc tài khoản không đúng'
         return render_template("login.html", err = err)
@@ -72,6 +71,11 @@ def signup_dk():
             err = 'Tài khoản đã tồn tại'
     return render_template("signup.html", err = err)
 
+@app.route('/admin/logout')
+def logout():
+    session.pop('username', None)
+    return redirect("/")
+
 
 @app.route("/insert_product")
 def insert_product():
@@ -98,7 +102,7 @@ def inserted_product():
     sql = f"insert into db_sach(ten_sach,id_tacgia,gia_sach,soluong,so_sao,mota,trang_thai,id_dm) values(N'{ten_sach}', {id_tacgia}, {gia_sach},{soluong},{so_sao},'{mota}',{trang_thai},{id_dm})"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/product")
 
 @app.route("/delete_product")
 def delete_product():
@@ -106,7 +110,7 @@ def delete_product():
     sql = f"delete from db_sach where id_sach = {id_sach}" 
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/product")
 
 @app.route("/updated_product", methods=["POST"])
 def updated_product():
@@ -122,7 +126,7 @@ def updated_product():
     sql = f"update db_sach set ten_sach = N'{ten_sach}',id_tacgia={id_tacgia}, gia_sach={gia_sach}, soluong={soluong}, so_sao={so_sao}, mota=N'{mota}', trang_thai={trang_thai},id_dm={id_dm} where id_sach = {id_sach}"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/product")
 
 @app.route("/inserted_author", methods=["POST"])
 def inserted_actor():
@@ -138,7 +142,7 @@ def inserted_actor():
     sql = f"insert into db_tacgia(ten_tacgia, avt_tacgia, gioi_thieu) values(N'{ten_tacgia}', '../static/imgs/{avt}', N'{gioi_thieu}')"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/author")
 
 @app.route("/delete_author")
 def delete():
@@ -146,7 +150,7 @@ def delete():
     sql = f"delete from db_tacgia where id_tacgia = {id_tacgia}" 
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/author")
 
 @app.route("/updated_author", methods=["POST"])
 def updated():
@@ -162,7 +166,7 @@ def updated():
     sql = f"update db_tacgia set ten_tacgia = N'{ten_tacgia}', avt_tacgia = '../static/imgs/{avt_tacgia}', gioi_thieu = N'{gioithieu}' where id_tacgia = {id_tacgia}"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/author")
 
 @app.route("/inserted_img", methods=["POST"])
 def inserted_img():
@@ -176,7 +180,7 @@ def inserted_img():
             sql = f"insert into img_sach(link_img, id_sach) values('../static/imgs/{img}', '{id_sach}')"
             cursor.execute(sql)
             connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/img")
 
 @app.route("/delete_img")
 def delete_img():
@@ -184,7 +188,7 @@ def delete_img():
     sql = f"delete from img_sach where id_img = {id_img}" 
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/img")
 
 @app.route("/updated_img", methods=["POST"])
 def updated_img():
@@ -199,7 +203,7 @@ def updated_img():
     sql = f"update img_sach set link_img = '../static/imgs/{img}', id_sach = '{id_sach}' where id_img = {id_img}"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/img")
 
 @app.route("/category")
 def category():
@@ -219,10 +223,10 @@ def insert_category():
 @app.route("/inserted_category", methods=["POST"])
 def inserted_category():
     ten_dm = request.form.get("ten_dm")
-    sql = f"insert into db_danhmuc(ten_dm) values(N'{ten_dm}')"
+    sql = f"insert into db_danhmuc(ten_dm, trang_thai) values(N'{ten_dm}', '1')"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/category")
 
 @app.route("/delete_category")
 def delete_category():
@@ -230,7 +234,7 @@ def delete_category():
     sql = f"delete from db_danhmuc where id_dm = {id_dm}" 
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/category")
 
 @app.route("/updated_category", methods=["POST"])
 def updated_category():
@@ -239,7 +243,7 @@ def updated_category():
     sql = f"update db_danhmuc set ten_dm = N'{ten_dm}'where id_dm = {id_dm}"
     cursor.execute(sql)
     connection.commit()
-    return redirect("/admin")
+    return redirect("/admin/category")
 
 @app.route("/admin")
 def admin():
@@ -270,7 +274,139 @@ def admin():
         cursor.execute(sql_admin_categories)
         record_admin_categories = cursor.fetchall()
 
-        return render_template("admin.html", ds_author=record_admin_author, id_tacgia=id_tacgia, ds_products=record_admin_products, id_sach=id_sach,ds_products_author=record_products_author,ds_products_categories=record_products_categories, ds_img=record_admin_img, id_img=id_img, ds_categories=record_admin_categories, id_dm=id_dm)
+        return render_template("index.html", ds_author=record_admin_author, id_tacgia=id_tacgia, ds_products=record_admin_products, id_sach=id_sach,ds_products_author=record_products_author,ds_products_categories=record_products_categories, ds_img=record_admin_img, id_img=id_img, ds_categories=record_admin_categories, id_dm=id_dm)
+    else: 
+        return redirect("/login")
+
+@app.route("/admin/product")
+def admin_product():
+    if "username" in session:
+        id_tacgia = request.args.get("id_tacgia", type = int)
+        sql_admin_author = "select * from db_tacgia ORDER BY id_tacgia DESC"
+        cursor.execute(sql_admin_author)
+        record_admin_author = cursor.fetchall()
+
+        id_sach = request.args.get("id_sach", type = int)
+        sql_admin_products = "select * from products_admin ORDER BY id_sach DESC"
+        cursor.execute(sql_admin_products)
+        record_admin_products = cursor.fetchall()
+        sql_admin_products_author = "select * from products_author_admin"
+        cursor.execute(sql_admin_products_author)
+        record_products_author = cursor.fetchall()
+        sql_admin_products_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_products_categories)
+        record_products_categories = cursor.fetchall()
+
+        id_img = request.args.get("id_img", type = int)
+        sql_admin_img = "select * from img_admin ORDER BY id_img DESC;"
+        cursor.execute(sql_admin_img)
+        record_admin_img = cursor.fetchall()
+
+        id_dm = request.args.get("id_dm", type = int)
+        sql_admin_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_categories)
+        record_admin_categories = cursor.fetchall()
+
+        return render_template("admin_product.html", ds_author=record_admin_author, id_tacgia=id_tacgia, ds_products=record_admin_products, id_sach=id_sach,ds_products_author=record_products_author,ds_products_categories=record_products_categories, ds_img=record_admin_img, id_img=id_img, ds_categories=record_admin_categories, id_dm=id_dm)
+    else: 
+        return redirect("/login")
+
+@app.route("/admin/author")
+def admin_author():
+    if "username" in session:
+        id_tacgia = request.args.get("id_tacgia", type = int)
+        sql_admin_author = "select * from db_tacgia ORDER BY id_tacgia DESC"
+        cursor.execute(sql_admin_author)
+        record_admin_author = cursor.fetchall()
+
+        id_sach = request.args.get("id_sach", type = int)
+        sql_admin_products = "select * from products_admin ORDER BY id_sach DESC"
+        cursor.execute(sql_admin_products)
+        record_admin_products = cursor.fetchall()
+        sql_admin_products_author = "select * from products_author_admin"
+        cursor.execute(sql_admin_products_author)
+        record_products_author = cursor.fetchall()
+        sql_admin_products_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_products_categories)
+        record_products_categories = cursor.fetchall()
+
+        id_img = request.args.get("id_img", type = int)
+        sql_admin_img = "select * from img_admin ORDER BY id_img DESC;"
+        cursor.execute(sql_admin_img)
+        record_admin_img = cursor.fetchall()
+
+        id_dm = request.args.get("id_dm", type = int)
+        sql_admin_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_categories)
+        record_admin_categories = cursor.fetchall()
+
+        return render_template("admin_author.html", ds_author=record_admin_author, id_tacgia=id_tacgia, ds_products=record_admin_products, id_sach=id_sach,ds_products_author=record_products_author,ds_products_categories=record_products_categories, ds_img=record_admin_img, id_img=id_img, ds_categories=record_admin_categories, id_dm=id_dm)
+    else: 
+        return redirect("/login")
+
+@app.route("/admin/img")
+def admin_img():
+    if "username" in session:
+        id_tacgia = request.args.get("id_tacgia", type = int)
+        sql_admin_author = "select * from db_tacgia ORDER BY id_tacgia DESC"
+        cursor.execute(sql_admin_author)
+        record_admin_author = cursor.fetchall()
+
+        id_sach = request.args.get("id_sach", type = int)
+        sql_admin_products = "select * from products_admin ORDER BY id_sach DESC"
+        cursor.execute(sql_admin_products)
+        record_admin_products = cursor.fetchall()
+        sql_admin_products_author = "select * from products_author_admin"
+        cursor.execute(sql_admin_products_author)
+        record_products_author = cursor.fetchall()
+        sql_admin_products_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_products_categories)
+        record_products_categories = cursor.fetchall()
+
+        id_img = request.args.get("id_img", type = int)
+        sql_admin_img = "select * from img_admin ORDER BY id_img DESC;"
+        cursor.execute(sql_admin_img)
+        record_admin_img = cursor.fetchall()
+
+        id_dm = request.args.get("id_dm", type = int)
+        sql_admin_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_categories)
+        record_admin_categories = cursor.fetchall()
+
+        return render_template("admin_img.html", ds_author=record_admin_author, id_tacgia=id_tacgia, ds_products=record_admin_products, id_sach=id_sach,ds_products_author=record_products_author,ds_products_categories=record_products_categories, ds_img=record_admin_img, id_img=id_img, ds_categories=record_admin_categories, id_dm=id_dm)
+    else: 
+        return redirect("/login")
+
+@app.route("/admin/category")
+def admin_category():
+    if "username" in session:
+        id_tacgia = request.args.get("id_tacgia", type = int)
+        sql_admin_author = "select * from db_tacgia ORDER BY id_tacgia DESC"
+        cursor.execute(sql_admin_author)
+        record_admin_author = cursor.fetchall()
+
+        id_sach = request.args.get("id_sach", type = int)
+        sql_admin_products = "select * from products_admin ORDER BY id_sach DESC"
+        cursor.execute(sql_admin_products)
+        record_admin_products = cursor.fetchall()
+        sql_admin_products_author = "select * from products_author_admin"
+        cursor.execute(sql_admin_products_author)
+        record_products_author = cursor.fetchall()
+        sql_admin_products_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_products_categories)
+        record_products_categories = cursor.fetchall()
+
+        id_img = request.args.get("id_img", type = int)
+        sql_admin_img = "select * from img_admin ORDER BY id_img DESC;"
+        cursor.execute(sql_admin_img)
+        record_admin_img = cursor.fetchall()
+
+        id_dm = request.args.get("id_dm", type = int)
+        sql_admin_categories = "select * from products_categories_admin"
+        cursor.execute(sql_admin_categories)
+        record_admin_categories = cursor.fetchall()
+
+        return render_template("admin_category.html", ds_author=record_admin_author, id_tacgia=id_tacgia, ds_products=record_admin_products, id_sach=id_sach,ds_products_author=record_products_author,ds_products_categories=record_products_categories, ds_img=record_admin_img, id_img=id_img, ds_categories=record_admin_categories, id_dm=id_dm)
     else: 
         return redirect("/login")
 
@@ -319,23 +455,6 @@ def product():
     connection.commit()
     return render_template("product.html", rs = rs, lq = lq)       
 
-
-# @app.route("/file")
-# def uploadFile():
-#     return render_template("upload_file.html")
-
-# @app.route("/upload", methods=["POST"])
-# def uploaded():
-#     for uploaded_file in request.files.getlist("file"):
-#         if uploaded_file.filename != "":
-#             print(uploaded_file.filename)
-#             uploaded_file.save(os.path.join("static", uploaded_file.filename))
-#     return redirect("/file")
-
-
-#  if "username" in session:
-#     else: 
-#         return redirect("/login")
 @app.route("/maps")
 def maps():
     cursor.execute("select title, address, time, img, long, lat from db_maps")

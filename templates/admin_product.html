@@ -1,50 +1,168 @@
-<table class="table">
-    <tr>
-        <th>Mã sách</th>
-        <th>Tên sách</th>
-        <th>Mã tác giả</th>
-        <th>Gía sách</th>
-        <th>Số lượng</th>
-        <th>Số sao</th>
-        <th>Mô tả</th>
-        <th>Trạng thái</th>
-        <th>Mã danh mục</th>
-    </tr>
-    {% for i in ds_products %}
-    <tr>
-        {% if i[0] == id_sach %}
-        <form action="/updated_product?id_sach={{i[0]}}" method="POST">
-            <td>{{i[0]}}</td>
+{% include 'admin_head.html' %}
+<style>
+    .table td {
+        padding: 5px;
+    }
+</style>
 
-            <td><input style="width: 150px;" type="text" value="{{i[1]}}" name="ten_sach"></td>
-            <td><select name='id_tacgia'>
-                    {% for i in ds_products_author %}
-                    <option value="{{i[0]}}">{{i[1]}}</option>
-                    {% endfor %}
-                </select></td>
-            <td><input style="width: 70px;" type="text" value="{{i[3]}}" name="gia_sach"></td>
-            <td><input style="width: 70px;" type="text" value="{{i[4]}}" name="soluong"></td>
-            <td><input style="width: 70px;" type="text" value="{{i[5]}}" name="so_sao"></td>
-            <td><input style="width: 250px;" type="text" value="{{i[6]}}" name="mota"></td>
-            <td><input style="width: 70px;" type="text" value="{{i[7]}}" name="trang_thai"></td>
-            <td><select name='id_dm'>
-                    {% for i in ds_products_categories %}
-                    <option value="{{i[0]}}">{{i[1]}}</option>
-                    {% endfor %}
-                </select></td>
-            <td>
-                <a href="/admin" class="btn btn-danger">Hủy</a>
-                <input type="submit" class="btn btn-primary" value="Cập nhật">
-            </td>
-        </form>
-        {% else %} {% for x in i %}
-        <td>{{x}}</td>
-        {% endfor %}
-        <td>
-            <a href="/delete_product?id_sach={{i[0]}}" class="btn btn-danger">Xóa</a>
-            <a href="?id_sach={{i[0]}}" class="btn btn-primary">Sửa</a>
-        </td>
-        {% endif %}
-    </tr>
-    {% endfor %}
-</table>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        {% include 'admin_menu.html' %}
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>DataTables</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">DataTables</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                                    <a class="float-sm-right" data-toggle="modal" data-target="#createRole" style="cursor: pointer">Create new role object</a>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã sách</th>
+                                                <th>Tên sách</th>
+                                                <th>Mã tác giả</th>
+                                                <th>Gía sách</th>
+                                                <th>Số lượng</th>
+                                                <th>Số sao</th>
+                                                <th>Mô tả</th>
+                                                <th>Trạng thái</th>
+                                                <th>Mã danh mục</th>
+                                                <th><i class="far fa-keyboard"></i></th>
+                                            </tr>
+                                            {% for i in ds_products %}
+                                            <tr>
+                                                {% if i[0] == id_sach %}
+                                                <form action="/updated_product?id_sach={{i[0]}}" method="POST">
+                                                    <td>{{i[0]}}</td>
+
+                                                    <td><input style="width: 150px;" type="text" value="{{i[1]}}" name="ten_sach"></td>
+                                                    <td><select name='id_tacgia'>
+                                                        {% for i in ds_products_author %}
+                                                        <option value="{{i[0]}}">{{i[1]}}</option>
+                                                        {% endfor %}
+                                                    </select></td>
+                                                    <td><input style="width: 70px;" type="text" value="{{i[3]}}" name="gia_sach"></td>
+                                                    <td><input style="width: 70px;" type="text" value="{{i[4]}}" name="soluong"></td>
+                                                    <td><input style="width: 70px;" type="text" value="{{i[5]}}" name="so_sao"></td>
+                                                    <td><input style="width: 250px;" type="text" value="{{i[6]}}" name="mota"></td>
+                                                    <td><input style="width: 70px;" type="text" value="{{i[7]}}" name="trang_thai"></td>
+                                                    <td><select name='id_dm'>
+                                                        {% for i in ds_products_categories %}
+                                                        <option value="{{i[0]}}">{{i[1]}}</option>
+                                                        {% endfor %}
+                                                    </select></td>
+                                                    <td>
+                                                        <a href="/admin/product"><i class="far fa-times-circle"></i></a>
+                                                        <input type="submit" class="btn btn-primary" value="Cập nhật">
+                                                    </td>
+                                                </form>
+                                                {% else %} {% for x in i %}
+                                                <td>{{x}}</td>
+                                                {% endfor %}
+                                                <td>
+                                                    <a href="/delete_product?id_sach={{i[0]}}"><i class="far fa-times-circle"></i></a>
+                                                    <a href="?id_sach={{i[0]}}"><i class="far fa-edit"></i></a>
+                                                </td>
+                                                {% endif %}
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                    </table>
+
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="createRole" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content col-sm-10" style="margin: 0 auto">
+                    <div class="modal-body">
+                        <form action="/inserted_product" enctype="multipart/form-data" method="POST">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Chọn vào tên sách:</label>
+                                    <input class="form-control" type="text" name="ten_sach">
+                                </div>
+                                <div class="form-group">
+                                    <label>Chọn tác giả:</label>
+                                    <select name='id_tacgia' class="form-control">
+                                        {% for i in ds_products_author %}
+                                        <option value="{{i[0]}}">{{i[1]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Chọn danh mục:</label>
+                                    <select name='id_dm' class="form-control">
+                                        {% for i in ds_products_categories %}
+                                        <option value="{{i[0]}}">{{i[1]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nhập vào giá sách:</label>
+                                    <input class="form-control" type="text" name="gia_sach" multiple="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nhập vào số lượng:</label>
+                                    <input class="form-control" type="text" name="soluong" multiple="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Số sao:</label>
+                                    <input class="form-control" type="text" name="so_sao" multiple="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nhập mô tả:</label>
+                                    <textarea class="form-control" type="text" name="mota" multiple=""></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Trạng thái:</label>
+                                    <input class="form-control" type="text" name="trang_thai" multiple="">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" name="insert" class="btn btn-primary">Create</button>
+                                    <a href="/admin/product" class="btn btn-danger">Hủy</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% include 'admin_footer.html' %}
+        </div>
+</body>
